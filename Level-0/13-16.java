@@ -81,12 +81,18 @@ class Solution15_2 {
 
 // 양꼬치
 
-class Solution16 {
+class Solution16_1 {
     public int solution(int n, int k) {
         int basicFee = n * 12000;
         int drinkFee = k * 2000;
         int discount = (n / 10) * 2000;
         
         return basicFee + drinkFee - discount;
+    }
+}
+// 좀 더 간단한 풀이
+class Solution16_2 {
+    public int solution(int n, int k) {
+        return n * 12000 + k * 2000 - (n / 10 * 2000);
     }
 }
