@@ -62,7 +62,7 @@ class Solution11 {
 
 // 짝수는 싫어요
 
-class Solution12 {
+class Solution12_1 {
     public int[] solution(int n) {
        List<Integer> oddNumbers = new ArrayList<>();
         
@@ -77,6 +77,28 @@ class Solution12 {
             result[i] = oddNumbers.get(i);
         }
         
+        return result;
+    }
+}
+
+// 짝수는 싫어요 다른 풀이
+
+class Solution12_2 {
+    public int[] solution(int n) {
+         ArrayList<Integer> answer = new ArrayList<>();
+
+        for (int i = 1; i <= n; i++) {
+            if (i % 2 != 0) {
+                answer.add(i);
+            }
+        }
+
+        // ArrayList를 int 배열로 변환
+        int[] result = new int[answer.size()];
+        for (int i = 0; i < answer.size(); i++) {
+            result[i] = answer.get(i);
+        }
+
         return result;
     }
 }
