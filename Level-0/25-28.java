@@ -62,7 +62,7 @@ class Solution26_2 {
 }
 
 
-// 피자 나눠 먹기(1)
+// 피자 나눠 먹기 (1)
 
 class Solution27_1 {
     public int solution(int n) {
@@ -81,5 +81,24 @@ class Solution27_2 {
     public int solution(int n) {
         return n%7 == 0 ? n/7 : n/7+1;
 
+    }
+}
+
+// 피자 나눠 먹기 (2)
+
+// n이 6의 배수에 해당하는 최소 판 수 k를 찾는 것 = > 최소 공배수 찾기
+
+class Solution28 {
+    public int solution(int n) {
+         // 피자의 조각 수
+        int slicesPerPizza = 6;
+        
+        // 최소 공배수를 찾기 위한 반복문
+        int pizzas = 1;
+        while ((slicesPerPizza * pizzas) % n != 0) {
+            pizzas++;
+        }
+        
+        return pizzas;
     }
 }
