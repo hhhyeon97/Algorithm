@@ -34,3 +34,52 @@ class Solution25_2 {
     }
 }
 
+// 개미 군단
+
+// 중점 : 주어진 공격력 값을 효율적으로 사용하여 최소 병력을 구하는 것
+
+class Solution26_1 {
+    public int solution(int hp) {
+      
+        int generalAnts = hp / 5;
+        hp %= 5;
+
+        int soldierAnts = hp / 3;
+        hp %= 3;
+
+        int workerAnts = hp;
+
+        return generalAnts + soldierAnts + workerAnts;
+    }
+}
+
+// 간단한 버전
+
+class Solution26_2 {
+    public int solution(int hp) {
+       return hp / 5 + (hp % 5 / 3) + hp % 5 % 3;
+    }
+}
+
+
+// 피자 나눠 먹기(1)
+
+class Solution27_1 {
+    public int solution(int n) {
+        int pizzaPie = 7;
+        int pizzas = n / pizzaPie;
+        if (n % pizzaPie != 0) {
+            pizzas++;
+        }
+        return pizzas;
+    }
+}
+
+// 간단 버전 
+
+class Solution27_2 {
+    public int solution(int n) {
+        return n%7 == 0 ? n/7 : n/7+1;
+
+    }
+}
