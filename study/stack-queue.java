@@ -63,3 +63,49 @@ class Solution1_2 {
          return answer;
      }
  } 
+
+
+
+// Valid Parentheses ( LeetCode  )
+// 괄호 문자열이 유효한지 판단하는 문제
+
+class Solution {
+    public boolean isValid(String s) {
+         Stack<Character> stack = new Stack<>();
+        
+        // 문자열의 각 문자를 순회
+        for (char c : s.toCharArray()) {
+            // 여는 괄호는 스택에 추가
+            if (c == '(' || c == '{' || c == '[') {
+                stack.push(c);
+            } else {
+                // 닫는 괄호일 경우
+                // 스택이 비어있거나, 스택의 최상단이 짝이 맞지 않는 경우
+                if (stack.isEmpty() || !isMatchingPair(stack.pop(), c)) {
+                    return false;
+                }
+            }
+        }
+        // 모든 괄호를 처리하고 스택이 비어있으면 유효한 문자열
+        return stack.isEmpty();
+    }
+
+// 여는 괄호와 닫는 괄호가 짝이 맞는지 확인하는 메서드
+    private boolean isMatchingPair(char open, char close) {
+        return (open == '(' && close == ')') ||
+               (open == '{' && close == '}') ||
+               (open == '[' && close == ']');
+    }
+
+}
+
+/*
+스택 사용: 스택을 사용하여 여는 괄호 저장
+여는 괄호 처리: 여는 괄호 '(', '{', '['를 만나면 스택에 추가
+닫는 괄호 처리: 닫는 괄호 ')', '}', ']'를 만나면 스택에서 
+               최상단 요소를 꺼내서 짝이 맞는지 확인
+스택이 비어있거나 짝이 맞지 않으면 유효하지 않은 문자열로 간주
+모든 문자를 처리한 후 스택이 비어있다면 유효한 문자열인 것 !
+*/
+
+ 
