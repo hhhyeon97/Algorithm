@@ -21,3 +21,38 @@ public class Solution {
         
         return count; 
     }
+
+
+// 다른 풀이
+/*
+효율적인 방법: 투 포인터 알고리즘
+리스트를 오름차순으로 정렬
+투 포인터를 사용하여 리스트의 처음과 끝에서부터 이동하며 조건을 만족하는 쌍의 개수 세기
+*/
+    
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Collections;
+
+public class Solution {
+    public int countPairs(List<Integer> nums, int target) {
+        // 리스트를 정렬
+        Collections.sort(nums);
+
+        int count = 0;
+        int left = 0;
+        int right = nums.size() - 1;
+
+        // 투 포인터를 사용하여 쌍의 개수 세기
+        while (left < right) {
+            if (nums.get(left) + nums.get(right) < target) {
+                // 조건을 만족하는 쌍의 개수를 계산
+                count += (right - left);
+                left++;
+            } else {
+                right--;
+            }
+        }
+        
+        return count;
+    }
