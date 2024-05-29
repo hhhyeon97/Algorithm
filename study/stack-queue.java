@@ -64,9 +64,8 @@ class Solution1_2 {
      }
  } 
 
-
-
-// Valid Parentheses ( LeetCode  )
+// LeetCode
+// 20. Valid Parentheses
 // 괄호 문자열이 유효한지 판단하는 문제
 
 class Solution2 {
