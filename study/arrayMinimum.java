@@ -4,7 +4,7 @@
 
 import java.util.Arrays;
 
-public class Game {
+class Game {
     public static int[] playGame(int[] nums) {
         // nums 배열을 정렬
         Arrays.sort(nums);

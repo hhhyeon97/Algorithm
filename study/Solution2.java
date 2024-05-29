@@ -1,11 +1,12 @@
+import java.util.*;
 // LeetCode 2824. Count Pairs Whose Sum is Less than Target
 // 합이 목표보다 작은 쌍의 개수 계산
 
 
-import java.util.List;
-import java.util.ArrayList;
+// import java.util.List;
+// import java.util.ArrayList;
 
-public class Solution {
+class Solution1 {
     public int countPairs(List<Integer> nums, int target) {
         int count = 0;  // 조건을 만족하는 쌍의 개수를 저장할 변수
 
@@ -21,7 +22,7 @@ public class Solution {
         
         return count; 
     }
-
+}
 
 // 다른 풀이
 /*
@@ -30,11 +31,11 @@ public class Solution {
 투 포인터를 사용하여 리스트의 처음과 끝에서부터 이동하며 조건을 만족하는 쌍의 개수 세기
 */
     
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Collections;
+// import java.util.List;
+// import java.util.ArrayList;
+// import java.util.Collections;
 
-public class Solution {
+class Solution2 {
     public int countPairs(List<Integer> nums, int target) {
         // 리스트를 정렬
         Collections.sort(nums);
@@ -56,3 +57,4 @@ public class Solution {
         
         return count;
     }
+}
