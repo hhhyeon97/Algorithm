@@ -1,8 +1,76 @@
 
+import java.util.*;
 
 // 완전탐색
 
-// 모의고사 
+
+// 1.최소직사각형
+// https://school.programmers.co.kr/learn/courses/30/lessons/86491
+
+
+/*
+명함을 회전하여 정렬하기:
+
+각 명함의 가로와 세로를 비교하여 큰 값을 항상 가로(width)로,
+작은 값을 세로(height)로 만들기 
+
+최대 가로와 세로 찾기:
+
+모든 명함의 가로 중 최대값 찾기
+모든 명함의 세로 중 최대값 찾기
+
+최소 지갑 크기 계산하기:
+
+최대 가로와 최대 세로를 곱하여 지갑의 크기를 계산
+
+예제 설명
+
+명함을 회전시켜서 정렬하면:
+
+[60, 50] -> [60, 50]
+[30, 70] -> [70, 30]
+[60, 30] -> [60, 30]
+[80, 40] -> [80, 40]
+최대 가로는 80, 최대 세로는 50
+
+따라서 지갑의 크기는 80 * 50 = 4000이 된다.
+
+*/
+
+class Solution1 {
+    public int solution(int[][] sizes) {
+      int maxWidth = 0;
+        int maxHeight = 0;
+        
+        // 모든 명함을 돌면서 가로와 세로를 정리
+        for (int[] size : sizes) {
+            int width = Math.max(size[0], size[1]);
+            int height = Math.min(size[0], size[1]);
+            
+            // 최대 가로와 최대 세로를 갱신
+            if (width > maxWidth) {
+                maxWidth = width;
+            }
+            if (height > maxHeight) {
+                maxHeight = height;
+            }
+        }
+        
+        // 지갑의 최소 크기 계산 
+        return maxWidth * maxHeight;
+    }
+}
+/*
+명함 회전 및 정리:
+
+for 루프를 통해 각 명함의 가로와 세로를 비교하여 큰 값을 width, 작은 값을 height로 설정
+maxWidth와 maxHeight를 각각 현재 명함의 width와 height와 비교하여 최대값으로 갱신합
+*/
+
+
+
+
+// 2.모의고사 
 // https://school.programmers.co.kr/learn/courses/30/lessons/42840
 
 /*
@@ -12,7 +80,7 @@
 
 
 단계 1: 수포자들의 찍기 패턴 정의
-각 수포자가 문제를 찍는 패턴을 먼저 정의해야 합니다.
+각 수포자가 문제를 찍는 패턴을 먼저 정의하기 
 
 1번 수포자: 1, 2, 3, 4, 5 (반복)
 2번 수포자: 2, 1, 2, 3, 2, 4, 2, 5 (반복)
@@ -26,8 +94,7 @@
 
 */
 
-import java.util.*;
-class Solution {
+class Solution2 {
     public int[] solution(int[] answers) {
          // 수포자들의 찍기 패턴 정의
         int[] pattern1 = {1, 2, 3, 4, 5};
