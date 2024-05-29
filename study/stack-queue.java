@@ -30,7 +30,7 @@ class Solution1_1 {
 }
 
 /*
-ai 피드백
+프로그래머스 ai 피드백
 
 사용자가 작성하신 자바 코드에서는 `num` 변수를 사용하여 연속된 숫자를 필터링하려고 하셨네요.
 하지만, 여기서 문제가 발생합니다. 배열의 첫 번째 원소를 `num`에 할당하는 로직이 빠져 있습니다.
@@ -69,7 +69,7 @@ class Solution1_2 {
 // Valid Parentheses ( LeetCode  )
 // 괄호 문자열이 유효한지 판단하는 문제
 
-class Solution {
+class Solution2 {
     public boolean isValid(String s) {
          Stack<Character> stack = new Stack<>();
         
