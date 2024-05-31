@@ -18,19 +18,19 @@ https://leetcode.com/problems/range-sum-of-bst/description/
 
 
 
-class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
-    TreeNode() {}
-    TreeNode(int val) { this.val = val; }
-    TreeNode(int val, TreeNode left, TreeNode right) {
-        this.val = val;
-        this.left = left;
-        this.right = right;
-    }
-} 
-class Solution {
+// class TreeNode {
+//     int val;
+//     TreeNode left;
+//     TreeNode right;
+//     TreeNode() {}
+//     TreeNode(int val) { this.val = val; }
+//     TreeNode(int val, TreeNode left, TreeNode right) {
+//         this.val = val;
+//         this.left = left;
+//         this.right = right;
+//     }
+// } 
+class Solution1 {
     public int rangeSumBST(TreeNode root, int low, int high) {
           if (root == null) {
             return 0;
@@ -68,4 +68,65 @@ rangeSumBST 메서드:
 현재 노드의 값이 low보다 크면 왼쪽 서브트리를 탐색한다.
 현재 노드의 값이 high보다 작으면 오른쪽 서브트리를 탐색한다.
 이 과정을 재귀적으로 수행하여 범위 내의 모든 노드 값을 합산한다.
+*/
+
+
+/*
+1379. Find a Corresponding Node of a Binary Tree in a Clone of That Tree
+1379. 트리의 클론에서 이진 트리의 대응 노드 찾기
+
+두 이진 트리가 주어졌을 때,
+원본 트리의 특정 노드에 해당하는 
+복제 트리의 노드를 찾아 반환하는 문제
+
+중요한 점은 두 트리가 동일한 구조를 가지며, 
+노드 값이 유일하다는 점
+
+재귀적 탐색 사용
+
+원본 트리를 탐색하면서 동일한 구조를 가진 복제 트리의 노드도 함께 탐색하여, 
+원본 트리에서 목표 노드를 찾으면 복제 트리에서 해당 노드를 반환
+*/
+
+// TreeNode 클래스 정의
+class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+
+    TreeNode(int x) {
+        val = x;
+    }
+}
+
+class Solution2 {
+    public final TreeNode getTargetCopy(final TreeNode original, final TreeNode cloned, final TreeNode target) {
+        // 두 트리가 null인 경우 null 반환
+        if (original == null) {
+            return null;
+        }
+
+        // 현재 노드가 타겟 노드인 경우, 복제 트리의 해당 노드 반환
+        if (original == target) {
+            return cloned;
+        }
+
+        // 왼쪽 하위 트리에서 타겟 노드를 찾기
+        TreeNode left = getTargetCopy(original.left, cloned.left, target);
+        if (left != null) {
+            return left;
+        }
+
+        // 오른쪽 하위 트리에서 타겟 노드를 찾기
+        return getTargetCopy(original.right, cloned.right, target);
+    }
+}
+
+/*
+TreeNode 클래스: 이진 트리의 노드를 나타내는 클래스
+
+getTargetCopy 메서드:
+original과 cloned 트리를 동시에 탐색
+original 트리에서 target 노드를 찾으면, cloned 트리의 동일한 위치에 있는 노드를 반환
+재귀적으로 왼쪽 하위 트리와 오른쪽 하위 트리를 탐색
 */
