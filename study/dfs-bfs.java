@@ -89,15 +89,15 @@ rangeSumBST 메서드:
 */
 
 // TreeNode 클래스 정의
-class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
+// class TreeNode {
+//     int val;
+//     TreeNode left;
+//     TreeNode right;
 
-    TreeNode(int x) {
-        val = x;
-    }
-}
+//     TreeNode(int x) {
+//         val = x;
+//     }
+// }
 
 class Solution2 {
     public final TreeNode getTargetCopy(final TreeNode original, final TreeNode cloned, final TreeNode target) {
@@ -129,4 +129,60 @@ getTargetCopy 메서드:
 original과 cloned 트리를 동시에 탐색
 original 트리에서 target 노드를 찾으면, cloned 트리의 동일한 위치에 있는 노드를 반환
 재귀적으로 왼쪽 하위 트리와 오른쪽 하위 트리를 탐색
+*/
+
+
+/*
+2331. Evaluate Boolean Binary Tree
+https://leetcode.com/problems/evaluate-boolean-binary-tree/description/
+이진 트리의 각 노드의 값을 바탕으로 트리를 평가하는 문제
+
+
+*/
+class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+
+    TreeNode(int val) {
+        this.val = val;
+    }
+
+    TreeNode(int val, TreeNode left, TreeNode right) {
+        this.val = val;
+        this.left = left;
+        this.right = right;
+    }
+}
+
+ class Solution3 {
+    public boolean evaluateTree(TreeNode root) {
+        // 리프 노드인 경우, 그 값을 반환 (0 또는 1)
+        if (root.left == null && root.right == null) {
+            return root.val == 1;
+        }
+
+        // 왼쪽과 오른쪽 자식 노드를 재귀적으로 평가
+        boolean leftValue = evaluateTree(root.left);
+        boolean rightValue = evaluateTree(root.right);
+
+        // 현재 노드의 값에 따라 연산 수행
+        if (root.val == 2) { // Boolean OR
+            return leftValue || rightValue;
+        } else if (root.val == 3) { // Boolean AND
+            return leftValue && rightValue;
+        }
+
+        // 잘못된 값인 경우 (문제 조건상 여기에 도달하지 않음)
+        return false;
+    }
+ }
+
+/*
+TreeNode 클래스 정의: 
+이 클래스는 트리의 노드를 나타내며, 값(val)과 왼쪽 및 오른쪽 자식 노드에 대한 참조(left, right)를 가진다.
+evaluateTree 메소드: 주어진 트리의 루트 노드를 평가
+리프 노드인지 확인하고, 리프 노드라면 그 값을 반환
+리프 노드가 아니라면, 왼쪽과 오른쪽 자식 노드를 재귀적으로 평가
+현재 노드의 값이 2이면 OR 연산을, 3이면 AND 연산을 수행
 */
