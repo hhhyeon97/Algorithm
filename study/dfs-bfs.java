@@ -88,6 +88,16 @@ rangeSumBST 메서드:
 원본 트리에서 목표 노드를 찾으면 복제 트리에서 해당 노드를 반환
 */
 
+/*
+TreeNode 클래스: 이진 트리의 노드를 나타내는 클래스
+
+getTargetCopy 메서드:
+original과 cloned 트리를 동시에 탐색
+original 트리에서 target 노드를 찾으면, cloned 트리의 동일한 위치에 있는 노드를 반환
+재귀적으로 왼쪽 하위 트리와 오른쪽 하위 트리를 탐색
+*/
+
+
 // TreeNode 클래스 정의
 // class TreeNode {
 //     int val;
@@ -122,14 +132,6 @@ class Solution2 {
     }
 }
 
-/*
-TreeNode 클래스: 이진 트리의 노드를 나타내는 클래스
-
-getTargetCopy 메서드:
-original과 cloned 트리를 동시에 탐색
-original 트리에서 target 노드를 찾으면, cloned 트리의 동일한 위치에 있는 노드를 반환
-재귀적으로 왼쪽 하위 트리와 오른쪽 하위 트리를 탐색
-*/
 
 
 /*
@@ -138,6 +140,38 @@ https://leetcode.com/problems/evaluate-boolean-binary-tree/description/
 이진 트리의 각 노드의 값을 바탕으로 트리를 평가하는 문제
 
 
+문제 이해하기
+
+주어진 문제는 완전 이진 트리를 평가하는 것
+이 트리의 각 노드는 다음과 같은 값을 가집니다:
+
+리프 노드 (자식이 없는 노드)는 0 또는 1의 값을 가집니다.
+0은 False를, 1은 True를 나타냅니다.
+비리프 노드 (자식이 있는 노드)는 2 또는 3의 값을 가집니다.
+2는 OR 연산을, 3은 AND 연산을 나타냅니다.
+
+트리를 평가하는 방법은 다음과 같습니다:
+
+리프 노드는 그 값 자체가 평가 결과입니다.
+비리프 노드는 자식 노드들을 평가한 후,
+해당 값(2 또는 3)에 따라 자식들의 평가 결과를 OR 또는 AND 연산을 통해 평가합니다.
+
+단계별 해결 방법
+기저 사례 처리: 리프 노드인 경우, 그 값이 0이면 False, 1이면 True를 반환합니다.
+재귀 호출: 현재 노드의 왼쪽과 오른쪽 자식 노드를 재귀적으로 평가합니다.
+연산 수행: 현재 노드의 값이 2이면 OR 연산, 3이면 AND 연산을 수행합니다.
+
+*/
+
+
+
+/*
+TreeNode 클래스 정의: 
+이 클래스는 트리의 노드를 나타내며, 값(val)과 왼쪽 및 오른쪽 자식 노드에 대한 참조(left, right)를 가진다.
+evaluateTree 메소드: 주어진 트리의 루트 노드를 평가
+리프 노드인지 확인하고, 리프 노드라면 그 값을 반환
+리프 노드가 아니라면, 왼쪽과 오른쪽 자식 노드를 재귀적으로 평가
+현재 노드의 값이 2이면 OR 연산을, 3이면 AND 연산을 수행
 */
 class TreeNode {
     int val;
@@ -178,11 +212,89 @@ class TreeNode {
     }
  }
 
+
 /*
-TreeNode 클래스 정의: 
-이 클래스는 트리의 노드를 나타내며, 값(val)과 왼쪽 및 오른쪽 자식 노드에 대한 참조(left, right)를 가진다.
-evaluateTree 메소드: 주어진 트리의 루트 노드를 평가
-리프 노드인지 확인하고, 리프 노드라면 그 값을 반환
-리프 노드가 아니라면, 왼쪽과 오른쪽 자식 노드를 재귀적으로 평가
-현재 노드의 값이 2이면 OR 연산을, 3이면 AND 연산을 수행
+226. Invert Binary Tree
+https://leetcode.com/problems/invert-binary-tree/description/
+
+이진 트리 뒤집기 
+
+트리를 뒤집는다는 것은 
+모든 노드의 왼쪽과 오른쪽 자식 노드를 교환하는 것을 의미
+
+예시 1:
+원래 트리:
+    4
+   / \
+  2   7
+ / \ / \
+1  3 6  9
+
+뒤집은 트리:
+    4
+   / \
+  7   2
+ / \ / \
+9  6 3  1
+
+접근 방법
+이 문제를 해결하는 방법은 재귀를 사용하는 것 
+각 노드를 방문하면서 그 노드의 왼쪽과 오른쪽 자식을 교환한다.
+
+단계별 해결 방법
+기저 사례 처리: 노드가 null인 경우 null을 반환합니다.
+재귀 호출: 왼쪽 자식과 오른쪽 자식을 재귀적으로 뒤집습니다.
+노드 교환: 현재 노드의 왼쪽 자식과 오른쪽 자식을 교환합니다.
+루트 반환: 뒤집힌 트리의 루트를 반환합니다.
+
+
+TreeNode 클래스:
+
+int val: 노드의 값을 저장합니다.
+TreeNode left 및 TreeNode right: 왼쪽 및 오른쪽 자식 노드를 가리킵니다.
+생성자: 노드의 값을 초기화합니다.
+Solution 클래스의 invertTree 메서드:
+
+기저 사례: 노드가 null인 경우, null을 반환합니다.
+재귀 호출: invertTree 메서드를 사용하여 왼쪽 자식과 오른쪽 자식을 각각 뒤집습니다.
+노드 교환: 현재 노드의 왼쪽 자식과 오른쪽 자식을 교환합니다.
+루트 반환: 뒤집힌 트리의 루트를 반환합니다.
 */
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution4 {
+    public TreeNode invertTree(TreeNode root) {
+        // 기저 사례: 노드가 null인 경우
+        if (root == null) {
+            return null;
+        }
+        
+        // 왼쪽과 오른쪽 자식을 재귀적으로 뒤집음
+        TreeNode left = invertTree(root.left);
+        TreeNode right = invertTree(root.right);
+        
+        // 현재 노드의 왼쪽과 오른쪽 자식을 교환
+        root.left = right;
+        root.right = left;
+        
+        // 루트를 반환
+        return root;
+        
+    }
+}
+
+
