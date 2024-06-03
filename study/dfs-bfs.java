@@ -298,3 +298,67 @@ class Solution4 {
 }
 
 
+
+/*
+104. Maximum Depth of Binary Tree
+Binary Tree의 최대 깊이를 구하는 문제
+*/
+
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution5 {
+    public int maxDepth(TreeNode root) {
+        // 노드가 null이면 깊이는 0 
+        if(root==null){
+            return 0;
+        }
+        
+        // 왼쪽과 오른쪽 서브트리의 깊이를 재귀적으로 구함
+        int left = maxDepth(root.left);
+        int right = maxDepth(root.right);
+
+        // 왼,오 서브트리 중 큰 값 구하기 - > 
+        // 현재 노드의 깊이도 포함해야 하므로 +1
+
+        return Math.max(left,right)+1;
+    }
+}
+
+/*
+예제 1:
+입력: [3,9,20,null,null,15,7]
+
+트리 구조:
+    3
+   / \
+  9  20
+     / \
+    15  7
+루트 노드(3)에서 가장 먼 리프 노드(15 또는 7)까지의 경로는
+3개 노드(3 -> 20 -> 15 또는 3 -> 20 -> 7)로 구성
+따라서, 최대 깊이는 3
+
+예제 2:
+입력: [1,null,2]
+트리 구조:
+  1
+   \
+    2
+루트 노드(1)에서 리프 노드(2)까지의 경로는 
+2개 노드(1 -> 2)로 구성
+따라서, 최대 깊이는 2
+*/
