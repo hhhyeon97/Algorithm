@@ -1,5 +1,6 @@
 
-
+import java.util.ArrayList;
+import java.util.List;
 // 동적계획법
 
 /*
@@ -82,4 +83,86 @@ countBits 메서드는 입력으로 정수 n을 받습니다.
 
 중복 부분 문제(Overlapping Subproblems): 동일한 작은 문제들이 여러 번 반복하여 나타나므로, 이를 한 번만 계산하고 저장해두면 효율적으로 문제를 해결할 수 있습니다.
 최적 부분 구조(Optimal Substructure): 문제의 최적해가 하위 문제들의 최적해로 구성될 수 있어야 합니다.
+*/
+
+
+/*
+https://leetcode.com/problems/pascals-triangle/description/
+
+118. Pascal's Triangle
+
+Pascal의 삼각형(Pascal's Triangle)은 매우 유명한 수학적 구조입니다.
+각 행(row)은 이전 행의 값을 이용해 계산됩니다.
+예를 들어, 세 번째 행의 두 번째 값은
+두 번째 행의 첫 번째 값과 두 번째 값을 더한 값입니다.
+
+Step-by-Step 설명
+기본 아이디어:
+
+각 행은 1로 시작하고 1로 끝납니다.
+중간 값들은 바로 위 행의 두 값의 합입니다.
+예시:
+
+첫 번째 행: [1]
+두 번째 행: [1, 1]
+세 번째 행: [1, 2, 1]
+네 번째 행: [1, 3, 3, 1]
+다섯 번째 행: [1, 4, 6, 4, 1]
+
+동적 계획법(DP):
+
+각 행을 계산할 때 이전 행을 이용해 새로운 행을 계산합니다.
+*/
+
+
+class Solution2 {
+    public List<List<Integer>> generate(int numRows) {
+           // 결과를 저장할 리스트 초기화
+        List<List<Integer>> triangle = new ArrayList<>();
+
+        // 첫 번째 행 추가
+        if (numRows >= 1) {
+            List<Integer> firstRow = new ArrayList<>();
+            firstRow.add(1);
+            triangle.add(firstRow);
+        }
+
+        // 각 행을 순차적으로 계산
+        for (int i = 1; i < numRows; i++) {
+            List<Integer> prevRow = triangle.get(i - 1);
+            List<Integer> currentRow = new ArrayList<>();
+
+            // 첫 번째 값은 항상 1
+            currentRow.add(1);
+
+            // 중간 값들은 이전 행의 두 값을 더한 값
+            for (int j = 1; j < i; j++) {
+                int value = prevRow.get(j - 1) + prevRow.get(j);
+                currentRow.add(value);
+            }
+
+            // 마지막 값도 항상 1
+            currentRow.add(1);
+
+            // 현재 행을 결과 리스트에 추가
+            triangle.add(currentRow);
+        }
+
+        return triangle;
+    }
+}
+
+/*
+리스트 초기화: triangle 리스트는 각 행(row)을 저장합니다.
+첫 번째 행 추가: 첫 번째 행은 항상 [1]입니다.
+
+각 행 계산:
+prevRow는 이전 행을 나타냅니다.
+currentRow는 현재 행을 저장합니다.
+첫 번째와 마지막 값은 항상 1입니다.
+중간 값들은 prevRow의 값을 이용해 계산됩니다.
+
+이 코드의 핵심은 동적 계획법을 이용해 이전 행의 값을 재사용하여
+새로운 행을 계산하는 것입니다. 
+이를 통해 효율적으로 Pascal의 삼각형을 생성할 수 있습니다.
 */
