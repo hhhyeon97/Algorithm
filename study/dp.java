@@ -166,3 +166,50 @@ currentRow는 현재 행을 저장합니다.
 새로운 행을 계산하는 것입니다. 
 이를 통해 효율적으로 Pascal의 삼각형을 생성할 수 있습니다.
 */
+
+
+/*
+https://leetcode.com/problems/fibonacci-number/description/
+
+509. Fibonacci Number
+*/
+
+// 배열 사용
+class Solution3_1 {
+    public int fib(int n) {
+           if (n <= 1) {
+            return n;
+        }
+        
+        int[] dp = new int[n + 1];
+        dp[0] = 0;
+        dp[1] = 1;
+        
+        for (int i = 2; i <= n; i++) {
+            dp[i] = dp[i - 1] + dp[i - 2];
+        }
+        
+        return dp[n];
+    }
+}
+
+// 변수 사용
+class Solution3_2 {
+    public int fib(int n) {
+       if (n <= 1) {
+            return n;
+        }
+        
+        int prev1 = 0;
+        int prev2 = 1;
+        int result = 0;
+        
+        for (int i = 2; i <= n; i++) {
+            result = prev1 + prev2;
+            prev1 = prev2;
+            prev2 = result;
+        }
+        
+        return result;
+    }
+}
