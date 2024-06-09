@@ -213,3 +213,73 @@ class Solution3_2 {
         return result;
     }
 }
+
+
+/*
+https://leetcode.com/problems/divisor-game/description/
+1025. Divisor Game
+*/
+class Solution {
+    public boolean divisorGame(int n) {
+        boolean[] dp = new boolean[n + 1];
+        
+        // 기본값 설정
+        dp[1] = false; // n = 1인 경우 Alice는 이길 수 없음
+        
+        for (int i = 2; i <= n; i++) {
+            for (int x = 1; x < i; x++) {
+                if (i % x == 0 && !dp[i - x]) {
+                    dp[i] = true;
+                    break; // 한 번 true가 되면 더 이상 확인할 필요 없음
+                }
+            }
+        }
+        
+        return dp[n];
+    }
+}
+
+/*
+Alice와 Bob이 번갈아 가면서 게임을 합니다. 
+초기에는 숫자 n이 주어지고, 각 플레이어는 다음 조건을 만족하는 x를 선택해야 합니다:
+
+0 < x < n
+n % x == 0 (즉, n을 x로 나눈 나머지가 0이어야 합니다)
+그리고 선택한 x를 n에서 빼서 새로운 n으로 바꾸는 방식입니다.
+더 이상 유효한 움직임을 할 수 없는 플레이어가 게임에서 지게 됩니다.
+Alice가 먼저 시작합니다.
+
+Alice가 이길 수 있는지 여부를 반환해야 합니다.
+
+이 문제를 동적 계획법으로 해결하는 방법은 
+각 n에 대해 Alice가 이길 수 있는지 여부를 저장하는 배열 dp를 사용하는 것입니다.
+
+
+만약 n이 1이면, Alice는 이길 수 없습니다. (dp[1] = false)
+2 이상의 숫자 n에 대해서, Alice는 n을 이길 수 있는지 결정하려면
+n에서 가능한 모든 x (0 < x < n, n % x == 0)를 고려해야 합니다. 
+Alice는 n - x로 이동하고, 이 이동이 Bob에게 지는 상황이 되는 경우 dp[n] = true가 됩니다.
+즉, dp[n]는 n보다 작은 x 중에서 
+n % x == 0인 모든 x에 대해 dp[n - x]가 false인 경우 true입니다.
+
+
+boolean[] dp = new boolean[n + 1]; : 
+
+n까지의 모든 수에 대해 Alice가 이길 수 있는지 여부를 저장하는 배열을 만듭니다.
+dp[1] = false; : 기본적으로 n이 1인 경우 Alice는 이길 수 없습니다.
+
+for (int i = 2; i <= n; i++) : 
+
+2부터 n까지 반복하며 각 i에 대해 Alice가 이길 수 있는지 계산합니다.
+for (int x = 1; x < i; x++) : 각 i에 대해 가능한 x를 모두 확인합니다.
+
+if (i % x == 0 && !dp[i - x]) : 
+i가 x로 나누어 떨어지고 dp[i - x]가 false인 경우, Alice는 이길 수 있습니다.
+
+dp[i] = true; : Alice가 이길 수 있음을 표시합니다.
+
+break; : 이미 true가 되었으므로 더 이상 확인할 필요가 없습니다.
+
+return dp[n]; : 최종 결과를 반환합니다.
+
+*/
