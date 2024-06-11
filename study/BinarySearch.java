@@ -3,6 +3,7 @@
 
 /*
 https://leetcode.com/problems/search-insert-position/description/
+35. Search Insert Position
 */
 
 class Solution {
@@ -80,4 +81,77 @@ int mid = start + (end - start) / 2; // 오버플로우 발생하지 않음
 결론
 이 식을 사용함으로써 오버플로우 문제를 피하고, 배열의 중간 인덱스를 안전하게 계산할 수 있습니다. 
 이는 특히 큰 배열을 다루거나 큰 인덱스 값을 사용할 때 매우 중요합니다. 
+*/
+
+
+/*
+https://leetcode.com/problems/count-negative-numbers-in-a-sorted-matrix/description/
+
+1351. Count Negative Numbers in a Sorted Matrix
+정렬된 행렬에서 음수 계산
+*/
+
+class Solution2 {
+    public int countNegatives(int[][] grid) {
+           int count = 0;
+        
+        // 행을 순회
+        for (int[] row : grid) {
+            count += countNegativesInRow(row);
+        }
+        
+        return count;
+    }
+
+    private int countNegativesInRow(int[] row) {
+        int left = 0;
+        int right = row.length - 1;
+        
+        // 이진 탐색
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            
+            if (row[mid] < 0) {
+                right = mid - 1;
+            } else {
+                left = mid + 1;
+            }
+        }
+        
+        // 음수가 시작되는 위치는 left
+        return row.length - left;
+    }
+}
+
+
+/*
+각 행(row)을 순회하면서 음수를 세기: 
+
+각 행의 음수는 그 행에서 처음으로 음수가 나타나는 위치부터 시작됩니다.
+그 이후의 모든 숫자는 음수일 것입니다.
+
+이진 탐색(Binary Search)를 사용: 
+
+각 행에서 음수가 시작되는 위치를 찾기 위해 이진 탐색을 사용할 수 있습니다.
+이진 탐색을 사용하면 O(log n)의 시간 복잡도로 음수의 시작 위치를 찾을 수 있습니다.
+
+각 행을 순회합니다.
+각 행에서 음수가 시작되는 위치를 이진 탐색으로 찾습니다.
+찾은 위치부터 행의 끝까지의 숫자들은 모두 음수이므로, 해당 위치부터 끝까지의 숫자 개수를 셉니다.
+모든 행에 대해 위 과정을 반복하여 전체 음수의 개수를 구합니다.
+
+
+이 방식은 행마다 O(log n)의 시간 복잡도로 음수를 찾기 때문에,
+전체 행렬에 대해서는 O(m log n)의 시간 복잡도를 가집니다. 
+이를 통해 효율적으로 음수의 개수를 셀 수 있습니다.
+
+countNegatives 메서드:
+
+행렬(grid)을 입력받아 전체 음수의 개수를 반환합니다.
+각 행을 순회하면서 countNegativesInRow 메서드를 호출해 음수의 개수를 셉니다.
+countNegativesInRow 메서드:
+
+한 행(row)을 입력받아 그 행에서 음수의 개수를 반환합니다.
+이진 탐색을 사용해 음수가 시작되는 위치를 찾습니다.
+음수가 시작되는 위치(left)부터 행의 끝까지의 숫자 개수를 반환합니다.
 */
