@@ -1,4 +1,5 @@
 
+ import java.util.*;
 
 /*
 https://leetcode.com/problems/find-center-of-star-graph/description/
@@ -59,4 +60,32 @@ edges[1][0]과 edges[1][1]은 두 번째 간선의 두 노드입니다.
 
 따라서 첫 두 간선만 살펴보아도 중심 노드를 쉽게 찾을 수 있습니다.
 
+*/
+
+
+/*
+https://leetcode.com/problems/minimum-number-of-moves-to-seat-everyone/description/?envType=daily-question&envId=2024-06-13
+
+2037. Minimum Number of Moves to Seat Everyone
+모든 사람이 앉을 수 있는 최소 이동 횟수
+*/
+
+class Solution2 {
+    public int minMovesToSeat(int[] seats, int[] students) {
+        Arrays.sort(seats);
+        Arrays.sort(students);
+
+        int move = 0;
+        for(int i=0; i<seats.length; i++){
+            move += Math.abs(seats[i]-students[i]);
+        }
+        return move;
+    }
+}
+
+/*
+Arrays.sort(seats);와 Arrays.sort(students);로 좌석과 학생 배열을 정렬
+for (int i = 0; i < seats.length; i++) 루프를 사용해 각 자리와 학생의 위치 차이를 계산
+Math.abs(seats[i] - students[i])는 자리와 학생의 위치 차이의 절대값을 계산
+totalMoves +=는 각 학생의 이동 거리를 totalMoves에 합산
 */
