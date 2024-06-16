@@ -1,5 +1,6 @@
 
 
+import java.util.*;
 
 /*
 https://leetcode.com/problems/shuffle-the-array/description/
@@ -134,3 +135,43 @@ count는 총 4번 증가했으므로, "좋은 쌍"의 수는 4입니다.
 */
 
 
+/*
+https://leetcode.com/problems/find-words-containing-character/description/
+
+2942. Find Words Containing Character
+
+각 단어에 대해 주어진 문자가 포함되어 있는지 확인하고, 
+포함되어 있다면 해당 단어의 인덱스를 결과 리스트에 추가
+*/
+
+
+class Solution3 {
+    public List<Integer> findWordsContaining(String[] words, char x) {
+        // List 인터페이스를 사용하여 선언하고 ArrayList로 초기화
+        List<Integer> resultList = new ArrayList<>();
+
+        // 단어를 순회하며 문자 x가 포함되어 있는지 확인
+        for (int i = 0; i < words.length; i++) {
+            if (words[i].indexOf(x) != -1) { // 문자 x가 단어에 포함되어 있는지 확인
+                resultList.add(i);
+            }
+        }
+
+        return resultList; // List<Integer>를 반환
+    }
+}
+
+
+/*
+words 배열과 문자 x를 입력으로 받는다.
+
+결과 저장을 위한 리스트:
+
+ArrayList를 사용하여 동적으로 결과 인덱스를 저장
+
+단어 순회:
+
+각 단어에 대해 indexOf 메소드를 사용하여 문자가 포함되어 있는지 확인
+( indexOf는 문자가 포함되어 있으면 그 위치를 반환하고, 포함되어 있지 않으면 -1을 반환한다. )
+
+*/
