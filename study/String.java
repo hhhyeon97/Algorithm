@@ -1,4 +1,7 @@
 
+// Solution3에 필요
+import java.util.HashMap;
+import java.util.HashSet;
 
 /*
 https://leetcode.com/problems/count-items-matching-a-rule/description/
@@ -60,3 +63,69 @@ class Solution2 {
         return new String(result);
     }
 }
+
+/*
+https://leetcode.com/problems/decode-the-message/description/
+
+2325. Decode the Message
+
+암호 해독기
+
+단계 1: 암호 해독 테이블 생성하기
+먼저 key 문자열에서 각 알파벳이 처음 등장하는 순서대로 해독 테이블을 생성한다.
+해독 테이블은 각 문자를 대응하는 영어 알파벳에 매핑한다.
+
+단계 2: 메시지 해독하기
+생성한 테이블을 사용하여 주어진 message를 해독한다.
+공백은 그대로 유지
+*/
+
+
+class Solution3 {
+    public String decodeMessage(String key, String message) {
+        HashMap<Character, Character> decodeMap = new HashMap<>();
+        HashSet<Character> seen = new HashSet<>();
+        char currentChar = 'a';
+        
+        // Step 1: Create the substitution table
+        for (char c : key.toCharArray()) {
+            if (c != ' ' && !seen.contains(c)) {
+                decodeMap.put(c, currentChar);
+                seen.add(c);
+                currentChar++;
+            }
+        }
+        
+        // Step 2: Decode the message using the table
+        StringBuilder decodedMessage = new StringBuilder();
+        for (char c : message.toCharArray()) {
+            if (c == ' ') {
+                decodedMessage.append(c);
+            } else {
+                decodedMessage.append(decodeMap.get(c));
+            }
+        }
+        
+        return decodedMessage.toString();
+    }
+}
+
+/*
+HashMap 및 HashSet 초기화:
+
+decodeMap은 문자 매핑 테이블
+seen은 이미 등장한 문자를 기록한다.
+
+암호 해독 테이블 생성:
+
+key 문자열을 반복하면서, 각 문자가 처음 등장하면
+decodeMap에 해당 문자와 현재 알파벳을 매핑하고, seen에 추가
+currentChar는 'a'에서 시작해서 매핑할 다음 문자를 가리킨다.
+
+메시지 해독:
+
+message 문자열을 반복하면서, 
+각 문자를 decodeMap을 사용하여 해독
+공백은 그대로 유지
+
+*/
