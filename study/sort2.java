@@ -1,3 +1,4 @@
+import java.util.*;
 
 /*
 https://leetcode.com/problems/neither-minimum-nor-maximum/
@@ -81,4 +82,33 @@ if (num < min) 구문은 현재 숫자 num이 현재의 최소값 min보다 작�
 작다면, min을 num으로 갱신합니다.
 if (num > max) 구문은 현재 숫자 num이 현재의 최대값 max보다 큰지를 확인합니다. 
 크다면, max를 num으로 갱신합니다.
+
+배열을 한 번만 순회하기 때문에 시간 복잡도는 O(n)
+*/
+
+
+/*
+https://leetcode.com/problems/find-target-indices-after-sorting-array/description/
+
+2089. Find Target Indices After Sorting Array
+
+배열을 정렬하고 target의 인덱스를 찾아서 리스트로 반환하는 문제 
+*/
+
+class Solution2 {
+    public List<Integer> targetIndices(int[] nums, int target) {
+        Arrays.sort(nums);
+         List<Integer> result = new ArrayList<>();
+        
+         for (int i = 0; i < nums.length; i++) {
+            if (nums[i] == target) {
+                result.add(i);
+            }
+        }
+        return result;
+    }
+}
+
+/*
+순서가 중요하고, 중복된 값을 저장해야 할 경우 ArrayList가 적합 !!
 */
