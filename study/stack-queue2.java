@@ -12,6 +12,9 @@ https://leetcode.com/problems/number-of-students-unable-to-eat-lunch/
 import java.util.LinkedList;
 import java.util.Queue;
 
+import java.util.Stack;
+
+
 class Solution {
     public int countStudents(int[] students, int[] sandwiches) {
          // 학생들의 큐를 만듭니다.
@@ -77,3 +80,65 @@ class RecentCounter {
         return requests.size();
     }
 }
+
+
+/*
+https://leetcode.com/problems/final-prices-with-a-special-discount-in-a-shop/description/
+
+1475. Final Prices With a Special Discount in a Shop
+*/
+// 각 항목에 대해 그 이후의 항목들을 모두 검사하므로 시간 복잡도는 O(n^2)
+class Solution3_1 {
+    public int[] finalPrices(int[] prices) {
+            int n = prices.length;
+            int[] result = new int[n];
+
+            for (int i = 0; i < n; i++) {  // 첫 번째 루프
+                result[i] = prices[i]; // 초기값을 현재 가격으로 설정
+                for (int j = i + 1; j < n; j++) {  // 두 번째 루프
+                    if (prices[j] <= prices[i]) {
+                        result[i] = prices[i] - prices[j];
+                        break; // 가장 작은 값을 찾으면 루프를 종료
+                    }
+                }
+            }
+            return result;
+    }
+}
+
+/*
+방법 2
+
+이 방식은 각 요소를 최대 두 번만 검사 -> 시간복잡도 O(n)
+*/
+
+/*
+O(n) 시간 복잡도는 알고리즘의 실행 시간이 입력 크기 
+𝑛
+n에 선형적으로 비례하는 경우를 나타낸다.
+입력 데이터의 크기가 커질수록 실행 시간도 그에 비례해서 증가함 
+*/
+class Solution3_2 {
+    public int[] finalPrices(int[] prices) {
+        int n = prices.length;
+        int[] result = new int[n];
+        Stack<Integer> stack = new Stack<>();
+
+        for (int i = 0; i < n; i++) {
+            while (!stack.isEmpty() && prices[stack.peek()] >= prices[i]) {
+                int index = stack.pop();
+                result[index] = prices[index] - prices[i];
+            }
+            stack.push(i);
+        }
+
+        // 스택에 남아있는 요소들은 할인받지 못한 요소들
+        while (!stack.isEmpty()) {
+            int index = stack.pop();
+            result[index] = prices[index];
+        }
+
+        return result;
+    }
+}
+
