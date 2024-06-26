@@ -10,6 +10,7 @@ https://leetcode.com/problems/number-of-students-unable-to-eat-lunch/
 
 
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 
 import java.util.Stack;
@@ -113,9 +114,7 @@ class Solution3_1 {
 */
 
 /*
-O(n) 시간 복잡도는 알고리즘의 실행 시간이 입력 크기 
-𝑛
-n에 선형적으로 비례하는 경우를 나타낸다.
+O(n) 시간 복잡도는 알고리즘의 실행 시간이 입력 크기 n에 선형적으로 비례하는 경우를 나타낸다.
 입력 데이터의 크기가 커질수록 실행 시간도 그에 비례해서 증가함 
 */
 class Solution3_2 {
@@ -142,3 +141,69 @@ class Solution3_2 {
     }
 }
 
+
+/*
+https://leetcode.com/problems/baseball-game/description/
+
+682. Baseball Game
+
+주어진 조건에 따라 야구 게임의 점수를 기록하고 계산하는 문제
+
+주어진 연산에 따라 기록을 업데이트하고, 최종적으로 기록된 모든 점수의 합을 반환
+*/
+
+class Solution4 {
+    public int calPoints(String[] operations) {
+         // 리스트를 사용하여 기록을 저장할 준비
+    List<Integer> record = new ArrayList<>();
+    
+    for (String op : operations) {
+        if (op.equals("C")) {
+            // 'C'일 경우 이전 점수를 제거
+            if (!record.isEmpty()) {
+                record.remove(record.size() - 1);
+            }
+        } else if (op.equals("D")) {
+            // 'D'일 경우 이전 점수의 두 배를 추가
+            if (!record.isEmpty()) {
+                int lastScore = record.get(record.size() - 1);
+                record.add(2 * lastScore);
+            }
+        } else if (op.equals("+")) {
+            // '+'일 경우 이전 두 점수의 합을 추가
+            if (record.size() >= 2) {
+                int last1 = record.get(record.size() - 1);
+                int last2 = record.get(record.size() - 2);
+                record.add(last1 + last2);
+            }
+        } else {
+            // 정수일 경우 해당 점수를 기록에 추가
+            int score = Integer.parseInt(op);
+            record.add(score);
+        }
+    }
+    
+    // 기록에 있는 모든 점수의 합을 계산하여 반환
+    int sum = 0;
+    for (int score : record) {
+        sum += score;
+    }
+    
+    return sum;
+    }
+}
+
+/*
+이 문제에서 각 연산(정수 추가, '+', 'D', 'C')은 리스트에 대해 다음과 같은 작업을 수행합니다:
+
+정수 추가: 리스트에 원소를 추가하는 작업으로, O(1)의 시간이 소요됩니다.
+'+': 리스트의 마지막 두 원소를 사용하여 계산하고, 그 결과를 리스트에 추가하는 작업으로, O(1)의 시간이 소요됩니다.
+'D': 리스트의 마지막 원소를 사용하여 계산하고, 그 결과를 리스트에 추가하는 작업으로, O(1)의 시간이 소요됩니다.
+'C': 리스트의 마지막 원소를 제거하는 작업으로, O(1)의 시간이 소요됩니다.
+따라서 각 연산당 O(1)의 시간 복잡도를 가지게 됩니다.
+
+전체 연산의 수행 시간은 연산의 개수인 n에 비례하게 됩니다. 따라서 전체 시간 복잡도는 O(n)이 됩니다.
+
+이는 각 연산이 상수 시간 내에 처리되기 때문에 가능한 최적의 시간 복잡도입니다. 
+따라서 이 코드는 입력 크기에 따라 선형적으로 처리될 수 있어서 효율적인 알고리즘으로 볼 수 있습니다.
+*/
