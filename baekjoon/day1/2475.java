@@ -2,6 +2,8 @@
 
 // 검증수
 
+// 메모리 : 17604 KB	시간 : 172 ms
+
 import java.util.Scanner;
 
 public class Main {

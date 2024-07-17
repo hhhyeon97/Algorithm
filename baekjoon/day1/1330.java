@@ -2,6 +2,9 @@
 
 // 두 수 비교
 
+// 메모리 : 17656 KB	시간 : 180 ms
+
+
 import java.util.Scanner;
 
 public class Main {
