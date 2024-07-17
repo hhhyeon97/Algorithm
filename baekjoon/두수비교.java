@@ -1,0 +1,21 @@
+import java.util.Scanner;
+
+public class Main {
+    
+	public static void main(String[] args) {
+		int A, B;
+		Scanner sc = new Scanner(System.in);
+		A = sc.nextInt();
+		B = sc.nextInt();
+        
+        // if문과 else if문 활용
+		if(A > B) {
+			System.out.println(">");
+		} else if(A < B) {
+			System.out.println("<");
+		} else {    
+            System.out.println("==");
+        }
+        
+	}
+}
