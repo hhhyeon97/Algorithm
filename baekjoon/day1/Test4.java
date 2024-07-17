@@ -7,7 +7,7 @@
 
 import java.util.Scanner;
 
-public class Main {
+public class Test4 {
     public static void main(String[] args) {
         
         int A, B, C;
