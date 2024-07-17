@@ -1,7 +1,10 @@
+// https://www.acmicpc.net/problem/1330
+
+// 두 수 비교
+
 import java.util.Scanner;
 
 public class Main {
-    
 	public static void main(String[] args) {
 		int A, B;
 		Scanner sc = new Scanner(System.in);
