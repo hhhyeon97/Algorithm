@@ -12,7 +12,7 @@ public class Test2 {
 
         int N;
         N = Integer.parseInt(br.readLine());
-
+        // 이중 for문 사용
         for (int i = 1; i <= N; i++) {
             for (int j = 1; j <= i; j++) {
                 System.out.print("*");
