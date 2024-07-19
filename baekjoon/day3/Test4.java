@@ -13,6 +13,10 @@ a < b < c이면 w(a, b, c-1) + w(a, b-1, c-1) - w(a, b-1, c)을 반환.
 그 외의 경우 w(a-1, b, c) + w(a-1, b-1, c) + w(a-1, b, c-1) - w(a-1, b-1, c-1)을 반환.
 
 */
+
+
+// 메모리 : 27056 KB	시간 : 304 ms
+
 package baekjoon.day3;
 
 import java.io.BufferedReader;
