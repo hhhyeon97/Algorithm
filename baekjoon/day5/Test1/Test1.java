@@ -5,7 +5,7 @@
 
 // 계산된 수행 횟수와 알고리즘의 최고차항의 차수 출력하기
 
-package baekjoon.day5;
+package baekjoon.day5.Test1;
 
 import java.io.*;
 
