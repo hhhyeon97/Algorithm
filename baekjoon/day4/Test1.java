@@ -3,6 +3,8 @@
 
 // 메모리 :  17700 KB	시간 : 208 ms
 
+package baekjoon.day4;
+
 import java.util.Scanner;
 
 public class Test1 {
