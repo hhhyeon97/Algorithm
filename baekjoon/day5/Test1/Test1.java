@@ -17,6 +17,7 @@ public class Test1 {
 
         // 코드1의 수행 횟수를 계산
         // (n-1) * n / 2를 계산하고, long 타입으로 변환
+        // -> int 범위 초과할 경우 방지
         long count = (long) (n - 1) * n / 2;
 
         // 계산된 수행 횟수를 출력
