@@ -1,4 +1,4 @@
-package baekjoon.day6;
+package baekjoon.test1;
 
 
 import java.util.ArrayList;

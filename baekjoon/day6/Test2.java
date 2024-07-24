@@ -1,2 +1,0 @@
-package baekjoon.day6;
-
