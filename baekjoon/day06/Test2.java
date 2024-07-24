@@ -1,3 +1,7 @@
+// https://www.acmicpc.net/problem/24313
+
+// 메모리 :  17716 KB	시간 : 212 ms
+
 package baekjoon.day06;
 
 import java.util.Scanner;
