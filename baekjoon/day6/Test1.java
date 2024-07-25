@@ -2,7 +2,7 @@
 
 // 메모리 :  22848 KB	시간 : 324 ms
 
-package baekjoon.day06;
+package baekjoon.day6;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

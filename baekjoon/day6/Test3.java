@@ -2,7 +2,7 @@
 
 // 메모리 :  18400 KB	시간 : 244 ms
 
-package baekjoon.day06;
+package baekjoon.day6;
 
 /*
 자연수 N과 M이 주어졌을 때, 1부터 N까지의 자연수 중에서 중복 없이 

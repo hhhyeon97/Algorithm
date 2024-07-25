@@ -2,7 +2,7 @@
 
 // 메모리 :  25428 KB	시간 : 288 ms
 
-package baekjoon.day06;
+package baekjoon.day6;
 
 import java.io.*;
 import java.util.HashSet;

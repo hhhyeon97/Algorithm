@@ -2,7 +2,7 @@
 
 // 메모리 :  17716 KB	시간 : 212 ms
 
-package baekjoon.day06;
+package baekjoon.day6;
 
 import java.util.Scanner;
 
