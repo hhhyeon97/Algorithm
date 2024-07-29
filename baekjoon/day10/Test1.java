@@ -6,7 +6,7 @@
 
 // bufferedReader 쓰면 메모리/시간 단축됨 !
 
-// 14236KB	124ms
+// - >  14236KB	    124ms
 
 package baekjoon.day10;
 
@@ -33,6 +33,9 @@ public class Test1 {
         Arrays.sort(heights);
 
         // 모든 가능한 7명의 난쟁이를 선택하기 위해 조합을 검사
+
+        // 경우의 수 : 36
+        
         for (int i = 0; i < 9; i++) {
             for (int j = i + 1; j < 9; j++) {
                 int sum = 0;
