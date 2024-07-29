@@ -24,7 +24,7 @@ public class Test1 {
 
         // 모든 가능한 부분 문자열을 생성하여 해시셋에 추가
         for (int start = 0; start < n; start++) {
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new StringBuilder();  // ++ substring 활용하면 좋을 듯 !
             for (int end = start; end < n; end++) {
                 sb.append(S.charAt(end));
                 result.add(sb.toString());
@@ -37,4 +37,3 @@ public class Test1 {
         bw.close();
     }
 }
-
