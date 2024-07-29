@@ -104,3 +104,29 @@ class Test {
         }
     }
 }
+
+/*
+outerLoop 라벨은 루프에 이름을 붙여서 중첩 루프를 쉽게 제어할 수 있도록 하는 기능
+
+라벨의 역할
+
+라벨을 사용하여 루프 식별: outerLoop는 루프에 붙인 이름으로, 이 이름을 통해 어떤 루프를 종료할지 지정할 수 있다.
+중첩 루프 제어: break나 continue와 함께 사용하여 특정 라벨이 붙은 루프만 종료하거나 계속할 수 있다.
+
+ex) 
+outerLoop:
+for (int i = 0; i < heights.length - 1; i++) {
+    for (int j = i + 1; j < heights.length; j++) {
+        if (sum - heights[i] - heights[j] == 100) {
+            x = heights[i];
+            y = heights[j];
+            break outerLoop; // outerLoop 라벨이 붙은 루프를 종료
+        }
+    }
+}
+outerLoop 라벨: 첫 번째 for문에 outerLoop라는 이름을 붙인다.
+break outerLoop;: 두 번째 for문 안에서 break outerLoop;를 호출하면, 이름이 outerLoop로 붙은 첫 번째 for문 전체가 종료된다.
+
+이 방식은 중첩된 루프 구조에서 특정 루프만 종료하고 싶을 때 유용 - > 
+outerLoop 라벨이 붙은 루프를 명시적으로 종료할 수 있어, 코드의 흐름을 제어하기 좋다.
+*/

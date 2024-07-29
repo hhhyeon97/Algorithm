@@ -16,7 +16,7 @@ public class Test4 {
 
         for (int i = 0; i < T; i++) {
             // 빈 줄을 읽어서 건너뛰기
-            String blank = br.readLine();
+            br.readLine();
 
             // 세준이와 세비의 병사 수 읽기
             StringTokenizer st = new StringTokenizer(br.readLine(), " ");
@@ -57,7 +57,7 @@ public class Test4 {
 }
 
 /*
-String blank = br.readLine();
+String blank = br.readLine(); - > br.readLine(); 해도 됨 
 
 -> 테스트 케이스 사이에 있는 빈 줄을 처리하기 위한 작업
 
@@ -105,4 +105,37 @@ int max_sj = -1;
 = > 초기 값으로 -1을 설정함으로써, 
 처음 읽어오는 병사 힘이 -1보다 클 것이므로, 
 항상 최대 힘이 업데이트될 수 있도록 보장할 수 있다.
+*/
+
+
+/* +++
+readLine()은 입력 스트림에서 한 줄을 읽어오는 역할을 함 !
+
+readLine()의 역할
+
+한 줄의 문자열을 읽어오기: BufferedReader의 readLine() 메서드는 현재 줄의 문자열을 읽어서 반환
+개행 문자 포함하지 않음: 읽어온 문자열에는 줄의 끝에 있는 개행 문자 (\n 또는 \r\n)는 포함되지 않는다.
+- > 반환된 문자열에는 개행 문자나 엔터 키가 포함되지 않음 !
+
+예시 ) 
+
+만약 사용자가 입력한 내용이 다음과 같다고 할 때:
+
+Hello
+World
+
+그리고 readLine()을 호출하면:
+
+첫 번째 호출 (br.readLine()): "Hello"를 반환
+두 번째 호출 (br.readLine()): "World"를 반환
+
+여기서 \n (개행 문자)은 반환된 문자열에 포함되지 않고, 
+각 줄의 끝에 있는 개행 문자는 자동으로 처리되기 때문에 문자열에 포함되지 않는다.
+
+빈 줄 처리
+빈 줄을 읽어오는 경우, readLine()은 빈 문자열 ""을 반환한다.
+이는 빈 줄을 의미 - > 빈 줄을 처리하기 위해서 readLine()을 사용하여 해당 줄을 읽고, 
+빈 문자열인지 확인할 수 있다.
+
+이렇게 readLine()을 사용하면 입력을 처리할 때 줄 단위로 데이터를 정확하게 읽어올 수 있다.
 */
