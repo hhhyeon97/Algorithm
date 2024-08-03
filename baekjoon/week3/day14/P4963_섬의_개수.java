@@ -1,5 +1,9 @@
 // https://www.acmicpc.net/problem/4963
 
+// 참고
+// https://velog.io/@lifeisbeautiful/Java-%EB%B0%B1%EC%A4%80-4963%EB%B2%88-%EC%84%AC%EC%9D%98-%EA%B0%9C%EC%88%98-with-%EC%9E%90%EB%B0%94
+
+
 // 15344KB	124ms
 package baekjoon.week3.day14;
 
