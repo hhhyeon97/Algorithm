@@ -19,6 +19,21 @@ i=k고, j=k이면, i->j->k가 가능하다.
 두 노드 간의 직접적 또는 간접적 연결성을 모두 고려해야 한다.
 */
 
+/*
+
+첫 번째 줄 3은 전제의 수
+
+a is b
+b is c
+c is d
+
+이후 줄의 3은 결론의 수
+
+a is d
+a is c
+d is a
+
+*/
 import java.io.*;
 
 public class P15723_n단_논법 {
