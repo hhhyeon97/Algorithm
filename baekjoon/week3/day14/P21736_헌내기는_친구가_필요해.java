@@ -9,6 +9,9 @@
 3. 아무도 만나지 못한 경우
 4. 이미 방문한 경우
 */
+package baekjoon.week3.day14;
+
+
 import java.io.*;
 import java.util.*;
 
