@@ -1,7 +1,6 @@
 // https://www.acmicpc.net/problem/13565
 
-// 55576	1320
-
+// 53060KB	1060ms
 package baekjoon.week3.day15;
 
 import java.io.BufferedReader;
@@ -49,6 +48,7 @@ public class P13565_침투 {
 
         // 결과 출력
         System.out.println(currentReaches ? "YES" : "NO");
+        br.close();
     }
 
     // DFS를 통해 전류가 흰색 격자로 이동
