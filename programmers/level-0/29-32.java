@@ -60,3 +60,41 @@ class Solution30_2 {
         return answer;
     }
 }
+
+class Solution_암호_해독 {
+    public String solution(String cipher, int code) {
+
+        // StringBuilder를 사용하여 결과 문자열 생성
+        StringBuilder answer = new StringBuilder();
+        
+        // code의 배수 번째 문자 가져오기
+        for (int i = code - 1; i < cipher.length(); i += code) {
+            answer.append(cipher.charAt(i));
+        }
+        
+        // StringBuilder 객체를 문자열로 변환해서 반환
+        return answer.toString();
+    }
+}
+
+class Solution_대문자와_소문자 {
+    public String solution(String my_string) {
+
+        StringBuilder result = new StringBuilder();
+
+        // 문자열의 각 문자 순회하기
+        for (int i = 0; i < my_string.length(); i++) {
+            char c = my_string.charAt(i);
+
+            // 문자가 대소문자 확인하고 변환
+            if (Character.isUpperCase(c)) {
+                // 대문자 -> 소문자 변환
+                result.append(Character.toLowerCase(c));
+            } else {
+                // 소문자 -> 대문자 변환
+                result.append(Character.toUpperCase(c));
+            }
+        }
+        return result.toString();
+    }
+}
