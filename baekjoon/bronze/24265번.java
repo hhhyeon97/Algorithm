@@ -11,6 +11,14 @@
  * 
  * 
  * 
+ * MenOfPassion(A[], n) {
+    sum <- 0;
+    for i <- 1 to n - 1
+        for j <- i + 1 to n
+            sum <- sum + A[i] × A[j]; # 코드1
+    return sum;
+}
+ * 
 1. n(n-1)/2가 어떻게 나왔는지
 
 주어진 알고리즘을 보면 이중 for문으로 되어 있음
