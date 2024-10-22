@@ -106,8 +106,14 @@ FROM FISH_INFO;
 -- https://school.programmers.co.kr/learn/courses/30/lessons/151138
 
 /*
+
 DATEDIFF(END_DATE, START_DATE) 함수는 
-END_DATE와 START_DATE 사이의 일수를 계산
+END_DATE와 START_DATE 사이의 일수를 구해준다. (24시간 기준이 아니라 날짜 기준임 !!!)
+ㄴ> ex )
+SELECT DATEDIFF('2024-10-22 00:00:00', '2024-10-23 18:00:00');
+ㄴ> 결과 : 1
+ㄴ> 시간으로 보면 하루 차이가 아닌데 일수로 보면 1이 되는 것
+
 
 대여일부터 1일차라 단순히 날짜 차이를 기준으로 하면 29일 이상부터 장기임
 대여를 하고 같은 날 반납을 하는 경우는 대여기간을 1일로 친다.
