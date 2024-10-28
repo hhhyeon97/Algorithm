@@ -82,6 +82,41 @@ MAX(), MIN()과 같은 집계 함수를 사용해 각 사원의 한 가지 값�
 따라서, 이 쿼리에서 사원 정보가 고유하게 결정되도록 GROUP BY에 EMP_NAME, POSITION, EMAIL 컬럼을 추가해주는 것이 정확하다.
 */
 
+-- ★ 만약 공동 1위인 사원이 존재하는 문제였다면 !! 위 답은 틀릴 수 있게 됨
+-- 공동 1위가 있을 때까지를 고려한 쿼리 ↓↓↓
+-- 아직은 서브쿼리 너어무 어려우므로 레벨 뒤에서 나온다니까 그때 다시 제대로 파보는걸로...!
+-- 지금은 이런 방법도 있구나라고 생각하자요
+
+SELECT TotalScores.SCORE, HE.EMP_NO, HE.EMP_NAME, HE.POSITION, HE.EMAIL
+FROM HR_EMPLOYEES HE
+JOIN HR_DEPARTMENT HD ON HD.DEPT_ID = HE.DEPT_ID
+JOIN (
+    -- 각 사원의 총 점수를 계산
+    SELECT EMP_NO, SUM(SCORE) AS SCORE
+    FROM HR_GRADE
+    WHERE YEAR = 2022
+    GROUP BY EMP_NO
+) AS TotalScores ON HE.EMP_NO = TotalScores.EMP_NO
+WHERE TotalScores.SCORE = (
+    -- 최고 점수를 찾는 서브쿼리
+    SELECT MAX(SCORE)
+    FROM (
+        SELECT EMP_NO, SUM(SCORE) AS SCORE
+        FROM HR_GRADE
+        WHERE YEAR = 2022
+        GROUP BY EMP_NO
+    ) AS Scores
+)
+ORDER BY TotalScores.SCORE DESC;
+
+/*
+서브쿼리: TotalScores라는 별칭을 가진 서브쿼리를 만들어 각 사원의 EMP_NO와 해당 사원의 총 점수를 구한다.
+최고 점수 검색: 또 다른 서브쿼리를 통해 총 점수를 기반으로 최대 점수를 검색한다.
+JOIN: 외부 쿼리에서 HR_EMPLOYEES 테이블과 TotalScores를 조인하여 사원 정보를 조회한다.
+WHERE 조건: 총 점수가 최대 점수와 동일한 경우에 해당하는 사원만 조회한다.
+*/
+
+
 -- https://school.programmers.co.kr/learn/courses/30/lessons/157342
 -- 자동차 평균 대여 기간 구하기
 
