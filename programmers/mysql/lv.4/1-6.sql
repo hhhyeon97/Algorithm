@@ -101,10 +101,54 @@ ORDER BY TOTAL_SALES DESC, A.PRODUCT_ID ASC;
 -- https://school.programmers.co.kr/learn/courses/30/lessons/132204
 -- 취소되지 않은 진료 예약 조회하기
 
+-- 올바른 조인 조건 연결 염두하기 !! 
 
-
+SELECT C.APNT_NO, A.PT_NAME, 
+A.PT_NO, C.MCDP_CD, B.DR_NAME, C.APNT_YMD
+FROM PATIENT A
+JOIN APPOINTMENT C
+ON A.PT_NO = C.PT_NO
+JOIN DOCTOR B
+ON B.DR_ID = C.MDDR_ID
+WHERE C.APNT_CNCL_YN = "N" AND C.MCDP_CD = "CS"
+AND C.APNT_YMD LIKE "2022-04-13%"
+ORDER BY C.APNT_YMD;
 
 
 -- https://school.programmers.co.kr/learn/courses/30/lessons/131118
 -- 서울에 위치한 식당 목록 출력하기
 
+-- 식당별로 그룹화 하는 부분 추가해주어야 했음 !!
+
+SELECT A.REST_ID, A.REST_NAME, A.FOOD_TYPE,
+A.FAVORITES, A.ADDRESS, ROUND(AVG(B.REVIEW_SCORE),2) AS SCORE
+FROM REST_INFO A
+JOIN REST_REVIEW B
+ON A.REST_ID = B.REST_ID
+WHERE A.ADDRESS LIKE "서울%"
+GROUP BY B.REST_ID
+ORDER BY SCORE DESC, A.FAVORITES DESC;
+
+
+
+-- https://school.programmers.co.kr/learn/courses/30/lessons/131532
+-- 년, 월, 성별 별 상품 구매 회원 수 구하기
+
+/*
+GROUP BY 절에서 YEAR와 MONTH는 직접 계산된 값이기 때문에 계산된 컬럼의 별칭을 사용할 수 없다. 
+대신 YEAR(B.SALES_DATE)와 MONTH(B.SALES_DATE)로 지정해 주어야 한다.
+COUNT(DISTINCT B.USER_ID): 중복된 USER_ID가 여러 건일 경우 
+고유한 사용자 수를 정확히 세기 위해 DISTINCT 키워드 추가
+*/
+
+SELECT 
+    YEAR(B.SALES_DATE) AS YEAR,
+    MONTH(B.SALES_DATE) AS MONTH,
+    A.GENDER, 
+    COUNT(DISTINCT B.USER_ID) AS USERS
+FROM USER_INFO A
+JOIN ONLINE_SALE B
+    ON A.USER_ID = B.USER_ID
+WHERE A.GENDER IS NOT NULL
+GROUP BY YEAR(B.SALES_DATE), MONTH(B.SALES_DATE), A.GENDER
+ORDER BY YEAR(B.SALES_DATE), MONTH(B.SALES_DATE), A.GENDER;
