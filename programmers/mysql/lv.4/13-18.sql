@@ -83,3 +83,96 @@ LEFT JOIN ANIMAL_OUTS A ON H.HOUR = HOUR(A.DATETIME)
 GROUP BY H.HOUR
 ORDER BY H.HOUR;
 
+
+-- https://school.programmers.co.kr/learn/courses/30/lessons/301650
+-- 특정 세대의 대장균 찾기
+
+/*
+3세대의 대장균 ID만 추출하려면 각 대장균의 세대를 계산해야 한다. 
+이를 위해 재귀적 CTE(Common Table Expressions)를 사용하는 접근 방법이 유용하다. 
+SQL에서 재귀적 CTE는 한 레코드의 부모-자식 관계를 통해 트리 구조로 데이터를 조회할 때 적합하다. 
++ 복잡한 관계형 데이터를 다룰 때 강력한 기능이다.
+
+접근 방식
+1. 기본 세대를 설정하고, PARENT_ID가 NULL인 대장균(1세대)부터 시작한다.
+2. 재귀적으로 부모를 따라가며 자식 ID와 세대를 갱신해 나간다.
+3. 최종적으로 3세대만 필터링해 출력한다.
+*/
+
+/*
+WITH RECURSIVE ECOLI_GENERATIONS: 이 부분에서 재귀적 CTE를 설정하고, 각 ID의 세대를 계산한다.
+재귀 조건: PARENT_ID가 NULL인 대장균(1세대)을 먼저 선택한 뒤, 
+이들을 부모로 갖는 대장균을 찾아 세대를 증가시키며 연결한다.
+ㄴ> 이 방법은 트리 구조를 따라가며 원하는 세대를 필터링하는 데 효과적이다.
+*/
+
+WITH RECURSIVE ECOLI_GENERATIONS AS (
+    -- 1. 1세대(기본 세대) 대장균을 초기 설정
+    SELECT ID, PARENT_ID, 1 AS GENERATION
+    FROM ECOLI_DATA
+    WHERE PARENT_ID IS NULL
+    
+    UNION ALL
+    
+    -- 2. 재귀적으로 각 세대 자손을 추가
+    SELECT E.ID, E.PARENT_ID, EG.GENERATION + 1 AS GENERATION
+    FROM ECOLI_DATA E
+    JOIN ECOLI_GENERATIONS EG ON E.PARENT_ID = EG.ID
+)
+
+-- 3. 3세대 필터링 및 정렬
+SELECT ID
+FROM ECOLI_GENERATIONS
+WHERE GENERATION = 3
+ORDER BY ID;
+
+
+-- https://school.programmers.co.kr/learn/courses/30/lessons/276035
+-- FrontEnd 개발자 찾기
+
+SELECT D.ID, D.EMAIL, D.FIRST_NAME, D.LAST_NAME
+FROM DEVELOPERS D
+JOIN SKILLCODES S -- 개발자, 스킬코드 테이블 조인 -> SKILL_CODE 컬럼과 CODE 컬럼 간의 비트 연산을 수행.
+ON (D.SKILL_CODE & S.CODE) != 0 -- DEVELOPERS의 SKILL_CODE에 해당하는 비트 위치에 Front End 스킬의 CODE가 포함되어 있는지 확인. 
+                                -- 비트 연산 결과가 0이 아니면 해당 스킬이 포함된 것임 !
+WHERE S.CATEGORY = 'Front End' -- CATEGORY가 "Front End"인 스킬만 필터링.
+GROUP BY D.ID, D.EMAIL, D.FIRST_NAME, D.LAST_NAME -- 동일한 개발자가 여러 Front End 스킬을 가질 수 있으므로, 개발자별로 중복을 제거하기 위해 GROUP BY 사용
+ORDER BY D.ID;
+
+/* 예시 설명
+ex ) 
+
+1. SKILLCODES 테이블에서 "Front End" 카테고리인 코드 값들
+
+JavaScript: 16 (이진수로 10000)
+React: 2048 (이진수로 100000000000)
+Vue: 8192 (이진수로 10000000000000)
+
+2. DEVELOPERS 테이블의 예시 행
+
+D165의 SKILL_CODE 값은 400 (이진수로 110010000)
+
+ㄴ> 이제 D165의 SKILL_CODE 값 400이 "Front End" 스킬 코드 중 하나라도 포함하는지 확인해보자
+
+※ 비트 연산 과정
+비트 AND 연산을 통해 특정 코드 값이 포함되어 있는지 확인한다. 
+DEVELOPERS.SKILL_CODE와 SKILLCODES.CODE 값의 AND 연산 결과가 0이 아닌 경우 해당 개발자가 그 스킬을 가진 것이다.
+
+D165와 JavaScript (SKILLCODES.CODE = 16):
+
+D165의 SKILL_CODE = 400 (이진수: 110010000)
+JavaScript의 CODE = 16 (이진수: 10000)
+
+비트 AND 연산:
+
+110010000 (400)
+&
+0000010000 (16)
+= 0000010000 (16)  → 포함됨
+
+연산 결과가 16으로 0이 아니기 때문에, 
+D165는 JavaScript 스킬을 포함하고 있다는 것을 알 수 있다.
+
+ㄴ> 이 방식으로 DEVELOPERS.SKILL_CODE와 SKILLCODES.CODE를 비트 AND 연산으로 비교하여, 
+AND 연산의 결과가 0이 아니면 그 개발자는 해당 스킬을 가지고 있는 것이라 판단할 수 있음 !
+*/
