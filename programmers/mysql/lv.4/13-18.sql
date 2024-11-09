@@ -292,3 +292,77 @@ WHERE
                                                                    -- 해당 자동차가 11월 한 달간 대여 가능하다고 본다.
 HAVING FEE BETWEEN 500000 AND 2000000
 ORDER BY FEE DESC, C.CAR_TYPE ASC, C.CAR_ID DESC;
+
+
+-- https://school.programmers.co.kr/learn/courses/30/lessons/276036
+-- 언어별 개발자 분류하기
+
+/*
+CTE로 각 스킬의 CODE를 미리 가져오고, 
+개발자의 SKILL_CODE와 비교하여 GRADE를 계산한 방식으로 접근
+CTE 덕분에 메인 쿼리에서 반복 계산할 필요가 없어 코드가 깔끔해진다.
+*/
+
+
+/* 1. CTE 부분
+FrontEnd: 
+SKILLCODES 테이블에서 Front End 관련 스킬들(예: JavaScript, React, Vue)을 찾아, 
+그 CODE 값을 전부 더해서 하나의 값으로 만든다. 
+이 값은 Front End 스킬을 전부 포함하는 CODE가 된다.
+
+C: C# 스킬의 CODE 값을 가져온다.
+
+Python: Python 스킬의 CODE 값을 가져온다.
+*/
+WITH FrontEnd AS (
+    SELECT SUM(CODE) CODE 
+    FROM SKILLCODES
+    WHERE CATEGORY = 'Front End'
+),
+C AS (
+    SELECT CODE 
+    FROM SKILLCODES
+    WHERE NAME = 'C#'
+),
+Python AS (
+    SELECT CODE 
+    FROM SKILLCODES
+    WHERE NAME = 'Python'
+)
+/* 2. 메인 쿼리 부분
+DEVELOPERS 테이블을 FrontEnd, C, Python CTE들과 함께 사용해 필요한 데이터를 조합한다.
+CASE문을 사용해 GRADE를 분류한다.
+A 등급: SKILL_CODE가 Front End 스킬(F.CODE)과 Python(P.CODE)을 모두 포함하면 A.
+B 등급: SKILL_CODE가 C# 스킬(C.CODE)을 포함하면 B.
+C 등급: Front End 스킬을 포함하고 A 등급이 아닌 경우 C
+*/
+
+/* 비트 연산 부분 추가 설명
+ex )
+D.SKILL_CODE & C.CODE의 결과는 
+두 값에서 같은 위치에 1이 있는 비트만 남기기 때문에, 
+D.SKILL_CODE가 C.CODE와 일치하는 스킬을 포함할 경우 0보다 큰 값을 반환한다. 
+여기서 >= 1을 사용한 이유는 
+비트 연산 결과가 1 이상이면 해당 스킬을 포함하고 있다는 것을 의미하기 때문이다.
+- 0: 해당 스킬이 없음을 의미
+- 1 이상: 해당 스킬이 있음을 의미
+따라서 D.SKILL_CODE & C.CODE >= 1 은 
+D.SKILL_CODE가 C.CODE에 해당하는 스킬(예: C#)을 가지고 있는지 여부를 확인하는 조건이 된다.
+*/
+
+SELECT 
+    CASE 
+        WHEN D.SKILL_CODE & F.CODE >= 1 AND D.SKILL_CODE & P.CODE >= 1 THEN 'A' 
+        WHEN D.SKILL_CODE & C.CODE >= 1 THEN 'B'
+        WHEN D.SKILL_CODE & F.CODE >= 1 THEN 'C'
+    END AS GRADE,
+    ID,
+    EMAIL
+FROM DEVELOPERS D, FrontEnd F, C, Python P
+/*
+3. HAVING 및 정렬
+HAVING GRADE IS NOT NULL: GRADE가 없는(조건에 맞지 않는) 개발자를 제외한다.
+ORDER BY 1, 2: GRADE와 ID를 기준으로 오름차순 정렬한다.
+*/
+HAVING GRADE IS NOT NULL 
+ORDER BY 1, 2;
