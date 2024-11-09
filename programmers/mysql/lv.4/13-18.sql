@@ -181,13 +181,13 @@ AND 연산의 결과가 0이 아니면 그 개발자는 해당 스킬을 가지�
 -- https://school.programmers.co.kr/learn/courses/30/lessons/151141
 -- 자동차 대여 기록 별 대여 금액 구하기
 
+
 /*
 트럭 대여 기록을 조회하여 각 기록마다 대여 기간에 따라 할인율을 계산하고, 
 이를 통해 최종 대여 금액을 구하는 문제
 */
-
--- CTE로 접근하는 방식도 있던데 아직 어렵...
--- 나는 CASE 문을 통해 대여 기간에 맞는 할인율을 직접 가져와 계산하는 방법으로 접근
+-- CTE로 접근하는 방식도 있는데 나에겐 아직 어렵...
+-- CASE 문을 통해 대여 기간에 맞는 할인율을 직접 가져와 계산하는 방법으로 접근
 
 SELECT HISTORY_ID,
     ROUND(DAILY_FEE * 
@@ -234,3 +234,61 @@ DATEDIFF(END_DATE, START_DATE) + 1 = 30일이므로, 30일 이상 할인율인 7
 할인율을 적용한 일일 요금은 32,000 * (1 - 0.07) = 29,760원.
 총 대여 금액은 29,760 * 30 = 892,800원.
 */
+
+-- https://school.programmers.co.kr/learn/courses/30/lessons/157339
+-- 특정 기간동안 대여 가능한 자동차들의 대여비용 구하기
+
+/*
+1. SELECT 절
+C.CAR_ID, C.CAR_TYPE: CAR_RENTAL_COMPANY_CAR 테이블에서 각각 자동차의 ID와 종류를 가져온다.
+CAST(C.DAILY_FEE * 30 * (1 - 0.01 * D.DISCOUNT_RATE) AS UNSIGNED) AS FEE:
+CAR_RENTAL_COMPANY_CAR 테이블의 DAILY_FEE(일일 대여 요금)에 30일을 곱해 총 대여 금액을 계산하고, 할인율에 따라 요금을 조정한다.
+DISCOUNT_RATE가 % 단위로 저장되어 있으므로 0.01을 곱해 소수로 변환 후 계산한다.
+결과를 UNSIGNED로 변환(부호 없는 정수로 변환)하여 FEE라는 이름으로 출력한다.
+
+추가 꼬꼬 개념 : CAST는 SQL에서 데이터 타입을 변환하는 함수다. 
+여기서는 계산된 대여 금액을 UNSIGNED 데이터 타입으로 변환하고 있다.
+
+2. LEFT JOIN 서브쿼리 (H)
+CAR_RENTAL_COMPANY_RENTAL_HISTORY 테이블에서 각 CAR_ID별로 최소 START_DATE와 최대 END_DATE를 가져온다.
+LEFT JOIN을 통해 모든 자동차에 대해 각 대여 기록의 START_DATE, END_DATE 정보를 가져온다.
+WHERE ('2022-11-01' > H.END_DATE OR '2022-11-30' < H.START_DATE): 2022년 11월에 대여된 기록이 없는 자동차만 필터링한다. 
+즉, 주어진 날짜에 대여가 가능한 자동차를 의미한다.
+
+3. INNER JOIN
+CAR_RENTAL_COMPANY_DISCOUNT_PLAN D: DISCOUNT_PLAN 테이블과 INNER JOIN을 사용해 
+현재 자동차 종류(CAR_TYPE)와 30일 이상 대여에 해당하는 할인율을 결합한다.
+DURATION_TYPE LIKE '30%': DURATION_TYPE이 "30일 이상"인 할인 조건만 선택한다.
+
+4. WHERE 절
+C.CAR_TYPE IN ('SUV', '세단'): CAR_TYPE이 SUV나 세단인 자동차만 선택한다.
+
+5. HAVING 절
+HAVING FEE BETWEEN 500000 AND 2000000: 계산된 대여 금액 FEE가 50만 원 이상, 200만 원 미만인 자동차만 필터링한다.
+
+6. ORDER BY 절
+ORDER BY FEE DESC, C.CAR_TYPE ASC, C.CAR_ID DESC:
+FEE를 기준으로 내림차순 정렬.
+FEE가 같다면 CAR_TYPE을 오름차순 정렬.
+CAR_TYPE도 같다면 CAR_ID를 내림차순 정렬.
+*/
+
+SELECT 
+    C.CAR_ID, 
+    C.CAR_TYPE, 
+    CAST(C.DAILY_FEE * 30 * (1 - 0.01 * D.DISCOUNT_RATE) AS UNSIGNED) AS FEE 
+FROM CAR_RENTAL_COMPANY_CAR C 
+LEFT JOIN (
+    SELECT CAR_ID, MIN(START_DATE) AS START_DATE, MAX(END_DATE) AS END_DATE 
+    FROM CAR_RENTAL_COMPANY_RENTAL_HISTORY 
+    GROUP BY CAR_ID
+) H ON C.CAR_ID = H.CAR_ID 
+INNER JOIN CAR_RENTAL_COMPANY_DISCOUNT_PLAN D ON 
+    D.CAR_TYPE = C.CAR_TYPE 
+    AND D.DURATION_TYPE LIKE '30%' 
+WHERE 
+    C.CAR_TYPE IN ('SUV', '세단') 
+    AND ('2022-11-01' > H.END_DATE OR '2022-11-30' < H.START_DATE) -- 두 조건 중 하나라도 참이면 11월 동안의 대여 기록이 없는 것으로 간주하고 
+                                                                   -- 해당 자동차가 11월 한 달간 대여 가능하다고 본다.
+HAVING FEE BETWEEN 500000 AND 2000000
+ORDER BY FEE DESC, C.CAR_TYPE ASC, C.CAR_ID DESC;
