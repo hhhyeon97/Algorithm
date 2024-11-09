@@ -176,3 +176,61 @@ D165는 JavaScript 스킬을 포함하고 있다는 것을 알 수 있다.
 ㄴ> 이 방식으로 DEVELOPERS.SKILL_CODE와 SKILLCODES.CODE를 비트 AND 연산으로 비교하여, 
 AND 연산의 결과가 0이 아니면 그 개발자는 해당 스킬을 가지고 있는 것이라 판단할 수 있음 !
 */
+
+
+-- https://school.programmers.co.kr/learn/courses/30/lessons/151141
+-- 자동차 대여 기록 별 대여 금액 구하기
+
+/*
+트럭 대여 기록을 조회하여 각 기록마다 대여 기간에 따라 할인율을 계산하고, 
+이를 통해 최종 대여 금액을 구하는 문제
+*/
+
+-- CTE로 접근하는 방식도 있던데 아직 어렵...
+-- 나는 CASE 문을 통해 대여 기간에 맞는 할인율을 직접 가져와 계산하는 방법으로 접근
+
+SELECT HISTORY_ID,
+    ROUND(DAILY_FEE * 
+        CASE
+            WHEN DATEDIFF(END_DATE,START_DATE) + 1 >= 90 
+                THEN (SELECT (1 - DISCOUNT_RATE * 0.01) FROM CAR_RENTAL_COMPANY_DISCOUNT_PLAN WHERE CAR_TYPE = '트럭' AND DURATION_TYPE = '90일 이상')
+            WHEN DATEDIFF(END_DATE,START_DATE) + 1 >= 30 
+                THEN (SELECT (1 - DISCOUNT_RATE * 0.01) FROM CAR_RENTAL_COMPANY_DISCOUNT_PLAN WHERE CAR_TYPE = '트럭' AND DURATION_TYPE = '30일 이상')
+            WHEN DATEDIFF(END_DATE,START_DATE) + 1 >= 7 
+                THEN (SELECT (1 - DISCOUNT_RATE * 0.01) FROM CAR_RENTAL_COMPANY_DISCOUNT_PLAN WHERE CAR_TYPE = '트럭' AND DURATION_TYPE = '7일 이상')
+            ELSE 1 -- 7일 미만일 경우 할인율이 없는 상태
+        END
+    , 0) * (DATEDIFF(END_DATE,START_DATE) + 1) AS FEE
+FROM CAR_RENTAL_COMPANY_RENTAL_HISTORY 
+JOIN CAR_RENTAL_COMPANY_CAR USING(CAR_ID)
+WHERE CAR_TYPE = '트럭'
+ORDER BY FEE DESC, HISTORY_ID DESC;
+
+/*
+USING(CAR_ID)는 두 테이블에 공통으로 있는 컬럼 CAR_ID를 기준으로 테이블을 조인할 때 사용된다. 
+JOIN ... ON 구문과 비슷하지만, USING을 사용하면 공통 컬럼 이름을 한 번만 써도 되고, 그 컬럼은 결과에서 한 번만 표시된다.
+*/
+
+/*
+DAILY_FEE 컬럼 : 일일 대여 요금
+
+1. DATEDIFF와 CASE 문을 사용한 할인율 계산:
+DATEDIFF(END_DATE, START_DATE) + 1로 대여 일수를 구한다.
+대여 일수가 90일 이상, 30일 이상, 7일 이상인지 확인해 각 조건에 맞는 할인율을 서브쿼리로 가져온다.
+예를 들어, 대여 일수가 90일 이상이면 90일 이상에 해당하는 할인율이 적용된다.
+ELSE 1은 대여 기간이 7일 미만인 경우로, 할인율이 없으므로 100% (할인율 없음)을 그대로 적용한다.
+
+2. 총 대여 금액(FEE) 계산:
+ROUND(DAILY_FEE * 할인율, 0) * 대여 일수를 통해 대여 요금에서 할인율을 적용하고, 대여 일수를 곱해 최종 대여 금액을 계산한다.
+ROUND(..., 0)는 소수점을 제거해 정수로 표현하게 한다.
+
+3. 결과 정렬: FEE와 HISTORY_ID 기준으로 내림차순 정렬해 대여 금액이 높은 순서로 정렬한다.
+
+===============================================================
+예시 )
+예를 들어, DAILY_FEE가 32,000원인 차량이 30일 동안 대여되었다면:
+
+DATEDIFF(END_DATE, START_DATE) + 1 = 30일이므로, 30일 이상 할인율인 7%가 적용된다.
+할인율을 적용한 일일 요금은 32,000 * (1 - 0.07) = 29,760원.
+총 대여 금액은 29,760 * 30 = 892,800원.
+*/
