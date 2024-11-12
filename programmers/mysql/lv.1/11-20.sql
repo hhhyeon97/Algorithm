@@ -1,6 +1,7 @@
 
 
 -- https://school.programmers.co.kr/learn/courses/30/lessons/131112
+-- 강원도에 위치한 생산공장 목록 출력하기
 
 -- 특정 문자로 시작하는 데이터 필터링
 SELECT FACTORY_ID, FACTORY_NAME, ADDRESS
@@ -9,6 +10,7 @@ WHERE ADDRESS LIKE "강원도%"
 ORDER BY FACTORY_ID;
 
 -- https://school.programmers.co.kr/learn/courses/30/lessons/131114
+-- 경기도에 위치한 식품창고 목록 출력하기
 
 -- NULL 값 치환할 때 IFNULL 활용하기
 SELECT WAREHOUSE_ID, WAREHOUSE_NAME, ADDRESS, 
@@ -36,6 +38,7 @@ SELECT COALESCE(first_name, last_name, email) AS name
 FROM employees;
 
 -- https://school.programmers.co.kr/learn/courses/30/lessons/131535
+-- 조건에 맞는 회원수 구하기
 
 -- JOINED가 날짜 형식이라면, 연도를 추출해 비교해야 함
 -- ㄴ> YEAR() 함수를 사용해 JOINED의 연도를 추출할 수 있다.
@@ -45,6 +48,7 @@ WHERE AGE BETWEEN 20 AND 29
   AND YEAR(JOINED) = 2021;
 
 -- https://school.programmers.co.kr/learn/courses/30/lessons/132203
+-- 흉부외과 또는 일반외과 의사 목록 출력하기
 
 -- DATE_FORMAT()을 사용해 날짜를 원하는 형식으로 변환
 -- 대문자 Y는 4자리 연도 / 소문자 y는 2자리 연도를 출력
@@ -54,6 +58,7 @@ WHERE MCDP_CD = "CS" OR MCDP_CD = "GS"
 ORDER BY HIRE_YMD DESC, DR_NAME ASC;
 
 -- https://school.programmers.co.kr/learn/courses/30/lessons/132201
+-- 12세 이하인 여자 환자 목록 출력하기
 
 -- PT_NO를 처음에 두고 제출해보면 틀림 -> 문제에서 요구한 순서에 맞게 출력하자 !
 SELECT PT_NAME, PT_NO, GEND_CD, AGE, IFNULL(TLNO, 'NONE')
@@ -62,12 +67,14 @@ WHERE AGE <=12 AND GEND_CD="W"
 ORDER BY AGE DESC, PT_NAME ASC;
 
 -- https://school.programmers.co.kr/learn/courses/30/lessons/133024
+-- 인기있는 아이스크림
 
 SELECT FLAVOR
 FROM FIRST_HALF
 ORDER BY TOTAL_ORDER DESC, SHIPMENT_ID;
 
 -- https://school.programmers.co.kr/learn/courses/30/lessons/144853
+-- 조건에 맞는 도서 리스트 출력하기
 
 SELECT BOOK_ID, DATE_FORMAT(PUBLISHED_DATE, '%Y-%m-%d') AS PUBLISHED_DATE
 FROM BOOK
@@ -75,12 +82,14 @@ WHERE CATEGORY='인문' AND YEAR(PUBLISHED_DATE) = 2021
 ORDER BY PUBLISHED_DATE;
 
 -- https://school.programmers.co.kr/learn/courses/30/lessons/59034
+-- 모든 레코드 조회하기
 
 SELECT ANIMAL_ID, ANIMAL_TYPE, DATETIME, INTAKE_CONDITION, NAME, SEX_UPON_INTAKE
 FROM ANIMAL_INS
 ORDER BY ANIMAL_ID;
 
 -- https://school.programmers.co.kr/learn/courses/30/lessons/133025
+-- 과일로 만든 아이스크림 고르기
 
 -- JOIN: FIRST_HALF 테이블과 ICECREAM_INFO 테이블을 FLAVOR로 조인.
 -- WHERE 조건: TOTAL_ORDER > 3000과 INGREDIENT_TYPE = 'fruit_based'로 필터링.
@@ -100,6 +109,7 @@ ORDER BY FH.TOTAL_ORDER DESC;
 -- LIKE는 부분 매칭이 필요할 때 사용하는 게 적합
 
 -- https://school.programmers.co.kr/learn/courses/30/lessons/151136
+-- 평균 일일 대여 요금 구하기
 
 SELECT ROUND(AVG(DAILY_FEE), 0) AS AVERAGE_FEE
 FROM CAR_RENTAL_COMPANY_CAR

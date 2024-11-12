@@ -1,12 +1,14 @@
 
 
 -- https://school.programmers.co.kr/learn/courses/30/lessons/293258
+-- 잔챙이 잡은 수 구하기
 
 SELECT COUNT(*) AS FISH_COUNT
 FROM FISH_INFO
 WHERE LENGTH IS NULL;
 
 -- https://school.programmers.co.kr/learn/courses/30/lessons/298515
+-- 잡은 물고기 중 가장 큰 물고기의 길이 구하기
 
 /*
 MAX(LENGTH): 물고기의 최대 길이를 구함.
@@ -48,6 +50,7 @@ SELECT ROUND(1234567.891, 2);  -- 결과: '1234567.89'
 */
 
 -- https://school.programmers.co.kr/learn/courses/30/lessons/157343
+-- 특정 옵션이 포함된 자동차 리스트 구하기
 
 -- 출력 예시에 전체 컬럼이 들어 있으니까 * 쓰고, 
 -- OPTIONS라는 데이터 안에 네비게이션이 포함된 거 찾는거니까 
@@ -59,6 +62,7 @@ WHERE OPTIONS LIKE '%네비게이션%'
 ORDER BY CAR_ID DESC;
 
 -- https://school.programmers.co.kr/learn/courses/30/lessons/276013
+-- Python 개발자 찾기
 
 -- 각 스킬 컬럼을 개별적으로 비교
 
@@ -68,6 +72,7 @@ WHERE SKILL_1 = 'Python' OR SKILL_2 = 'Python' OR SKILL_3 = 'Python'
 ORDER BY ID;
 
 -- https://school.programmers.co.kr/learn/courses/30/lessons/59415
+-- 최댓값 구하기
 
 SELECT DATETIME
 FROM ANIMAL_INS
@@ -88,12 +93,14 @@ MAX(DATETIME): DATETIME 컬럼에서 가장 큰 값을 찾아, 즉 가장 최근
 
 
 -- https://school.programmers.co.kr/learn/courses/30/lessons/298516
+-- 한 해에 잡은 물고기 수 구하기
 
 SELECT COUNT(*) AS "FISH_COUNT"
 FROM FISH_INFO
 WHERE YEAR(TIME)=2021;
 
 -- https://school.programmers.co.kr/learn/courses/30/lessons/293259
+-- 잡은 물고기의 평균 길이 구하기
 
 -- 10cm 이하이면 LENGTH가 NULL이고 10cm이하인 물고기들은 10cm로 취급하여
 -- 평균 길이를 구하라는 요구사항이 있었으므로
@@ -104,6 +111,7 @@ FROM FISH_INFO;
 
 
 -- https://school.programmers.co.kr/learn/courses/30/lessons/151138
+-- 자동차 대여 기록에서 장기/단기 대여 구분하기
 
 /*
 
@@ -134,6 +142,7 @@ ORDER BY HISTORY_ID DESC;
 
 
 -- https://school.programmers.co.kr/learn/courses/30/lessons/298517
+-- 가장 큰 물고기 10마리 구하기
 
 -- 조건에서 가장 큰 물고기 10마리 중 길이가 10cm 이하인 경우는 없다 하고
 -- 10cm 이하인 경우만 LENGTH 컬럼에 NULL을 넣어두기 때문에
@@ -145,8 +154,8 @@ ORDER BY LENGTH DESC, ID
 LIMIT 10;
 
 -- https://school.programmers.co.kr/learn/courses/30/lessons/164673
-
 -- 조건에 부합하는 중고거래 댓글 조회하기
+
 
 -- 계속 틀리길래 뭔가 싶었는데 날짜 포맷 후 이름 넣어주는걸 까먹음 !!
 -- 요구사항을 꼼꼼히 확인하자요 
@@ -158,7 +167,6 @@ WHERE UGB.CREATED_DATE LIKE "2022-10%"
 ORDER BY CREATED_DATE, TITLE;
 
 -- https://school.programmers.co.kr/learn/courses/30/lessons/301646
-
 -- 특정 형질을 가지는 대장균 찾기
 
 /*
