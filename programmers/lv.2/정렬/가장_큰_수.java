@@ -23,7 +23,7 @@ class Solution {
         if (result.charAt(0) == '0') {
             return "0";
         }
-        // 결과 객첼
+        // 문자열로 반환
         return result.toString();
     }
 }
@@ -61,4 +61,11 @@ compareTo는 두 문자열을 사전순으로 비교.
 b + a = "303"
 a + b = "330"
 "330"이 더 크므로 3이 앞에 온다.
+
+===============================
+
+toString() 메서드
+ㄴ> 객체의 정보를 String(문자열)형으로 형변환 해준다. 
+Object클래스를 상속받은 클래스들은 toString()을 오버라이딩(재정의)하여 사용할 수 있다. 
+ㄴ> 자주 쓰이는 String이나 Integer클래스에는 toString()이 이미 재정의 되어 있다.
 */
