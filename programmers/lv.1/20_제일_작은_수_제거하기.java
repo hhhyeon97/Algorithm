@@ -1,7 +1,6 @@
 
 // https://school.programmers.co.kr/learn/courses/30/lessons/12935
 
-import java.util.*;
 
 class Solution {
     public int[] solution(int[] arr) {
