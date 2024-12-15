@@ -31,7 +31,7 @@ SUBSTRING() 함수
 ㄴ>
 SUBSTRING(column_name, start, length)는 
 주어진 문자열에서 start 번째 위치부터 length 만큼의 문자를 추출하는 함수
-예를 들어, SUBSTRING('PRODUCT123', 1, 2)는 PR을 반환해
+예를 들어, SUBSTRING('PRODUCT123', 1, 2)는 PR을 반환
 column_name: 추출할 컬럼 또는 문자열.
 start: 추출을 시작할 위치(1부터 시작).
 length: 추출할 문자 수.
