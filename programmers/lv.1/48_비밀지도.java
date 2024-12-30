@@ -1,6 +1,9 @@
 
 // https://school.programmers.co.kr/learn/courses/30/lessons/17681
 
+// 두 개의 배열을 비트 연산으로 결합한 결과를 
+// #과 공백으로 표시해 문자열 배열로 출력하는 문제
+
 class Solution {
     public String[] solution(int n, int[] arr1, int[] arr2) {
 
