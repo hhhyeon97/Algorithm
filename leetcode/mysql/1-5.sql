@@ -10,3 +10,13 @@ SELECT p.firstName, p.lastName, a.city, a.state
 FROM Person p
 LEFT JOIN Address a
 ON p.personId = a.personId;
+
+-- # 2.
+-- https://leetcode.com/problems/employees-earning-more-than-their-managers/description/
+
+-- 관리자보다 수입이 많은 직원 찾기
+
+SELECT e.name AS Employee
+FROM Employee e
+JOIN Employee m ON e.managerId = m.id
+WHERE e.salary > m.salary;
