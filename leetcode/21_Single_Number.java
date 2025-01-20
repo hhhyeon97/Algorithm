@@ -3,6 +3,7 @@
 
 import java.util.*;
 
+// 배열에서 한 번만 나온 요소 찾는 문제
 // 문제 조건 : 선형 시간 복잡도/일정한 추가 공간만 사용
 
 // 풀이 1. XOR 연산
@@ -20,6 +21,20 @@ class Solution1 {
         for (int num : nums) {
             result ^= num;
         }
+        /*
+        xor 연산 특징
+        a ^ a = 0 (자기 자신과 XOR하면 0이 된다.)
+        a ^ 0 = a (0과 XOR하면 자기 자신이 나온다.)
+        
+        ex )
+        nums = [2, 2, 1]
+        초기 result = 0
+        연산: result ^= 2 -> 2
+        연산: result ^= 2 -> 0
+        연산: result ^= 1 -> 1
+        
+        최종 결과 : 1
+        */
         
         return result; // 단일 숫자가 남는다
     }
