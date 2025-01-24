@@ -20,3 +20,29 @@ SELECT e.name AS Employee
 FROM Employee e
 JOIN Employee m ON e.managerId = m.id
 WHERE e.salary > m.salary;
+
+-- # 3.
+-- https://leetcode.com/problems/duplicate-emails/description/
+
+-- 중복된 이메일 찾기
+
+select email as Email
+from Person
+group by email
+having count(*)>=2;
+
+-- # 4.
+-- https://leetcode.com/problems/customers-who-never-order/description/
+
+-- 주문하지 않은 고객 찾기
+
+-- left 조인 하면
+-- 고객 테이블에 있는 모든 고객을 유지하면서 오더 테이블과 조인
+-- 오더 테이블에 매칭되는 customerId가
+-- 없을 경우 NULL이 반환됨
+
+select c.name as Customers
+from Customers c
+left join Orders o
+on c.id = o.customerId
+where o.customerId is null; -- 주문을 하지 않은 고객만 필터링
