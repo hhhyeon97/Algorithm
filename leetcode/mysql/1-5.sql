@@ -46,3 +46,18 @@ from Customers c
 left join Orders o
 on c.id = o.customerId
 where o.customerId is null; -- 주문을 하지 않은 고객만 필터링
+
+-- # 5.
+-- https://leetcode.com/problems/delete-duplicate-emails/description/
+
+-- 중복된 이메일 삭제 (중복 이메일을 가진 행 중에 id가 가장 작은 것을 남기기)
+
+DELETE p1 
+FROM Person as p1, Person as p2
+WHERE (p1.email=p2.email) and (p1.id>p2.id)
+
+-- 테이블 별칭(p1, p2)을 붙이는 이유
+-- ㄴ 같은 테이블을 두 번 참조하면서 각각의 역할 구분
+-- ㄴ 동일한 'Person' 테이블을 두 번 사용하여 self-join 수행
+-- 조건 1: 두 테이블의 이메일 값이 같을 경우 (중복된 이메일을 찾음)
+-- 조건 2: 'p1'의 id가 'p2'의 id보다 클 경우 (더 큰 id를 삭제 대상)
