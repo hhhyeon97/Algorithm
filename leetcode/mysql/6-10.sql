@@ -30,3 +30,14 @@ from Employee e
 left join Bonus b
 on e.empId = b.empId
 where b.bonus < 1000 or b.empId is null;
+
+-- # 9.
+-- https://leetcode.com/problems/find-customer-referee/description/
+
+-- 조건
+-- 추천인이 2가 아닌 고객
+-- 추천인을 지정하지 않은 고객
+
+SELECT name
+FROM Customer
+WHERE referee_id IS NULL OR referee_id != 2;
