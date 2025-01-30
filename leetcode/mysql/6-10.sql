@@ -41,3 +41,15 @@ where b.bonus < 1000 or b.empId is null;
 SELECT name
 FROM Customer
 WHERE referee_id IS NULL OR referee_id != 2;
+
+-- # 10.
+-- https://leetcode.com/problems/customer-placing-the-largest-number-of-orders/description/
+
+-- 가장 많은 주문을 한 고객 찾기
+
+select customer_number
+from Orders
+group by customer_number -- 고객별로 주문 개수를 그룹화
+order by count(*) desc -- 주문 개수가 많은 순서대로 정렬
+limit 1; -- 가장 많이 주문한 고객 한 명만 선택
+
