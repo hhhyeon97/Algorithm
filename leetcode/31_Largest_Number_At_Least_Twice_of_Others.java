@@ -1,6 +1,10 @@
 
 // https://leetcode.com/problems/largest-number-at-least-twice-of-others/description/
 
+// 문제 접근
+// 배열에서 최댓값 찾기
+// 최댓값이 다른 모든!! 원소의 두 배 이상인가 확인
+// 만족하는 값의 인덱스 혹은 -1 반환
 
 class Solution {
     public int dominantIndex(int[] nums) {
