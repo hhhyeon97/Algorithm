@@ -41,9 +41,6 @@ ORDER BY
 -- https://school.programmers.co.kr/learn/courses/30/lessons/298519
 -- 특정 조건을 만족하는 물고기별 수와 최대 길이 구하기
 
--- 조건에서 10CM 이하인 물고기는 길이가 NULL 이라 했으니까
--- 널 처리 하는 구문이 추가되어야 통과됨 !!
-
 SELECT COUNT(*) AS FISH_COUNT, MAX(LENGTH) AS MAX_LENGTH, FISH_TYPE
 FROM FISH_INFO
 GROUP BY FISH_TYPE
