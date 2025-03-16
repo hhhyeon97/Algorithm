@@ -9,10 +9,8 @@ class Solution {
         for(int i=0; i<num_list.length; i+=n){
             list.add(num_list[i]);
         }
-        
-        int[] result = new int[list.size()];
-        
-        // 리스트를 int 배열로 변환
+        // 스트림 사용하면 배열 생성 없이
+        // 리스트를 int 배열로 변환 가능
         return list.stream().mapToInt(i -> i).toArray();
     }
 }
