@@ -4,24 +4,23 @@
 import java.util.*;
 
 class Solution {
-    public List solution(int[] arr, int[] delete_list) {
+    public int[] solution(int[] arr, int[] delete_list) {
         
-        List<Integer> answer = new ArrayList<>();
-      
-        // arr 배열의 모든 요소를 리스트에 추가
-        for (int num : arr) {
-            answer.add(num);
+        // delete_list를 빠른 탐색이 가능한 HashSet으로 변환
+        Set<Integer> deleteSet = new HashSet<>();
+        for (int num : delete_list) {
+            deleteSet.add(num);
         }
-        // delete_list에 있는 요소를 리스트에서 제거
-        for(int del : delete_list){
-            int index = answer.indexOf(del);  // 삭제할 요소의 인덱스 찾기
 
-            // 요소가 존재하면 제거
-            if (index != -1) {
-                answer.remove(index);
+        // 삭제할 값이 아닌 원소만 필터링하여 리스트에 저장
+        List<Integer> filteredList = new ArrayList<>();
+        for (int num : arr) {
+            if (!deleteSet.contains(num)) { // delete_list에 없는 값만 추가
+                filteredList.add(num);
             }
         }
-        // 삭제 후 남은 요소들이 저장된 리스트 반환
-        return answer;
+
+        // 리스트를 int 배열로 변환하여 반환 (스트림 활용)
+        return filteredList.stream().mapToInt(i -> i).toArray();
     }
 }
