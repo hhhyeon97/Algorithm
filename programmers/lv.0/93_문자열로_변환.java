@@ -4,8 +4,9 @@
 class Solution {
     public String solution(int n) {
         // 방법1. 
-        String answer = n+"";
-        return answer;
+        // String answer = n+"";
+        // return answer;
+        return n+"";
     }
 }
 
@@ -13,4 +14,4 @@ class Solution {
 // String answer = Integer.toString(n);
 
 // 방법3.
-String answer = String.valueOf(n);
+// String answer = String.valueOf(n);
